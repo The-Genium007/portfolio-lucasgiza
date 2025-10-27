@@ -1,0 +1,53 @@
+/* Composants utilitaires basés sur tokens + Tailwind
+ * Utilise @layer components pour que Tailwind puisse merger et permettre la purge.
+ */
+
+@layer components {
+  .card { border-radius: var(--r-card); border: 1px solid var(--color-border); background: var(--color-base-deep-30); padding: var(--card-padding); transition: border-color var(--transition-base), background-color var(--transition-base); }
+  .card-hover { transition: border-color var(--transition-base), background-color var(--transition-base); }
+  .card-hover:hover, .card-hover:focus-visible { border-color: var(--color-border-hover); background-color: var(--color-base-deep-50); }
+  /* Navigation link animation */
+  .nav-link-anim { 
+    will-change: color, transform, letter-spacing; 
+    transition: color .25s var(--ease-out, ease-out), transform .25s var(--ease-out, ease-out), letter-spacing .3s ease; 
+    letter-spacing: 0.04em;
+  }
+  .nav-link-anim:hover, .nav-link-anim:focus-visible { 
+    color: #ffffff; 
+    transform: scale(1.05);
+  }
+  .nav-link-anim.is-active { 
+    color: #ffffff; 
+    transform: scale(1.05);
+    letter-spacing: 0.05em;
+  }
+
+  .experience-company-link {
+    color: var(--color-accent) !important;
+    transition: color var(--transition-base);
+  }
+
+  .experience-company-link:hover,
+  .experience-company-link:focus-visible {
+    color: var(--color-fg) !important;
+  }
+
+  /* Fade-in upward animation */
+  @keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in-seq { 
+    opacity: 0; 
+    animation: fadeInUp .5s cubic-bezier(.4,0,.2,1) forwards; 
+    animation-delay: var(--_delay,0ms);
+    will-change: opacity, transform;
+  }
+  /* Active state can slightly reinforce color */
+  .fade-in-seq.is-active .nav-link-anim { color: #ffffff; }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in-seq { animation: none; opacity: 1; transform: none; }
+  }
+}

@@ -1,0 +1,70 @@
+/* Point d'entrée unique Tailwind v4 + tokens + couches custom
+ * Migration: v4 regroupe base/components/utilities dans un seul module.
+ */
+@import "tailwindcss";
+@import './tokens.css';
+@import './components.css';
+/* Components intégrés directement pour réduire les imports multiples */
+@layer components {
+			.card { border-radius: var(--r-card); border: 1px solid var(--color-border); background: var(--color-base-deep-30); padding: var(--card-padding); transition: border-color var(--transition-base), background-color var(--transition-base); }
+			.card-hover { transition: border-color var(--transition-base), background-color var(--transition-base); }
+			.card-hover:hover, .card-hover:focus-visible { border-color: var(--color-border-hover); background-color: var(--color-base-deep-50); }
+}
+@import './utilities.css';
+
+html { font-feature-settings: "cv02","cv03","cv04","cv11"; }
+
+body {
+	font-family: var(--font-sans);
+	background:
+		radial-gradient(circle at 20% 15%, var(--color-accent-a12), transparent 55%),
+		radial-gradient(circle at 80% 70%, var(--color-accent-a08), transparent 60%),
+		var(--color-bg);
+	color: var(--color-fg-soft);
+	-webkit-font-smoothing: antialiased;
+	font-size: var(--text-size-base);
+	line-height: var(--line-height-base);
+	/* Contrainte de largeur + centrage */
+	max-width: 1400px;
+	margin-inline: auto;
+	/* S'assurer que le body occupe toute la hauteur pour les backgrounds et le scroll */
+	min-height: 100dvh;
+	/* Respirations latérales sur petits écrans */
+	padding-inline: 1rem;
+}
+
+h1,h2,h3,h4 { color: var(--color-fg); font-weight: 600; line-height: 1.15; }
+h1 { font-size: var(--text-size-h1); letter-spacing: -0.5px; }
+h2 { font-size: var(--text-size-h2); letter-spacing: -0.25px; }
+h3 { font-size: var(--text-size-h3); }
+h4 { font-size: var(--text-size-h4); }
+
+/* Paragraphe global */
+p { font-size: var(--text-size-body); line-height: var(--line-height-normal); }
+
+b { color: var(--color-fg); }
+
+a { color: var(--color-accent); text-decoration: none; transition: color var(--transition-base); }
+a:hover { text-decoration: none; }
+/* Suppression globale des soulignements décoratifs */
+a:after, a:before { content: none !important; }
+
+/* Variante pour les contenus markdown / typographie */
+.prose a { text-decoration: none; position: relative; }
+.prose a:hover { color: var(--color-accent); }
+
+.app-container { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
+
+/* Skip link */
+.skip-link { position: absolute; left: -999px; top: 0; padding: 0.75rem 1rem; background: var(--color-accent); color: var(--color-skip-fg); font-weight: 600; border-radius: var(--r-base); z-index: 100; }
+.skip-link:focus { left: 1rem; top: 1rem; outline: 2px solid var(--color-accent); }
+
+::selection { background: var(--color-accent-soft); color: var(--color-fg); }
+
+@media (min-width: 1024px) { body { overflow-y: scroll; } }
+
+/* Scrollbar minimal Chrome */
+body::-webkit-scrollbar { width: 10px; }
+body::-webkit-scrollbar-track { background: transparent; }
+body::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--r-lg); }
+body::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }

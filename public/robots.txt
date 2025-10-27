@@ -1,0 +1,7 @@
+# robots.txt pour https://lucasgiza.com
+# Autorise intégralement l'exploration
+User-agent: *
+Allow: /
+
+# Sitemap principal
+Sitemap: https://lucasgiza.com/sitemap.xml
