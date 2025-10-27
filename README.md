@@ -68,16 +68,10 @@ Modify content in `data/` files:
 - `data/skills.js`: Your skills
 - `lib/metadata.js`: SEO and metadata
 
-## Deployment
-
-Deployable on Vercel (recommended), Netlify, or any platform supporting Next.js.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
 ---
 
 <div align="center">
 
-**Lucas Giza** • [Portfolio](#) • [GitHub](#) • [LinkedIn](#)
+**Lucas Giza** • [Portfolio](https://lucasgiza.com) • [LinkedIn](https://linkedin.com/in/lucas-giza-610093138)
 
 </div>
