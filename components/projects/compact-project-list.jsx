@@ -27,7 +27,7 @@ export function CompactProjectList({ projects, limit }) {
         const hasExternalLink = Boolean(href);
         const Content = (
           <div className="gi-fade flex gap-4 relative z-10">
-            <div className="bg-bgSoft/60 mt-1 h-18 w-32 flex-none rounded-sm border border-border overflow-hidden relative">
+            <div className="bg-bgSoft/60 mt-1 h-18 w-32 flex-none rounded-sm border border-border overflow-hidden relative transition-colors duration-300 ease-out group-hover:border-(--color-fg)">
               {p.image ? (
                 <Image
                   src={p.image}

@@ -22,7 +22,17 @@ const nextConfig = {
 		formats: ['image/avif', 'image/webp'],
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+		minimumCacheTTL: 31536000, // 1 an pour les images optimisées
+		dangerouslyAllowSVG: true,
+		contentDispositionType: 'attachment',
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
+
+	// Compression gzip/brotli automatique
+	compress: true,
+
+	// Optimisation du bundle
+	swcMinify: true,
 
 	// Configuration Turbopack
 	turbopack: {
@@ -61,6 +71,20 @@ const nextConfig = {
 					{
 						key: 'Referrer-Policy',
 						value: 'origin-when-cross-origin'
+					},
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable'
+					},
+				],
+			},
+			// Cache plus court pour les pages HTML
+			{
+				source: '/',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
 					},
 				],
 			},
