@@ -1,9 +1,23 @@
+import dynamic from 'next/dynamic';
 import { Hero } from '@/sections/home/hero';
 import { ExperienceList } from '@/sections/experience/experience-list';
-import { ProjectsGrid } from '@/sections/projects/projects-grid';
-import { PersonalProjectsGrid } from '@/sections/projects/personal-projects-grid';
 import Link from 'next/link';
-import { SkillsSection } from '@/sections/skills';
+
+// Lazy load des sections below-the-fold pour réduire le bundle initial
+const SkillsSection = dynamic(() =>
+  import('@/sections/skills').then(mod => ({ default: mod.SkillsSection })),
+  { loading: () => <div className="h-96 animate-pulse bg-bgSoft/30 rounded-lg" /> }
+);
+
+const ProjectsGrid = dynamic(() =>
+  import('@/sections/projects/projects-grid').then(mod => ({ default: mod.ProjectsGrid })),
+  { loading: () => <div className="h-96 animate-pulse bg-bgSoft/30 rounded-lg" /> }
+);
+
+const PersonalProjectsGrid = dynamic(() =>
+  import('@/sections/projects/personal-projects-grid').then(mod => ({ default: mod.PersonalProjectsGrid })),
+  { loading: () => <div className="h-96 animate-pulse bg-bgSoft/30 rounded-lg" /> }
+);
 
 export default function Home() {
   return (

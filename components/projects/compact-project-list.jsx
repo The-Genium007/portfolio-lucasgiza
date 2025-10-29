@@ -1,8 +1,6 @@
-"use client";
-import { useMemo } from 'react';
-import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { Badge } from '../ui/badge';
 import Image from 'next/image';
+import { ArrowUpRight } from './icons';
 
 /**
  * CompactProjectList
@@ -13,11 +11,9 @@ import Image from 'next/image';
  */
 
 export function CompactProjectList({ projects, limit }) {
-  // Memoize le tri et le slice pour éviter les re-calculs
-  const list = useMemo(() => {
-    const sorted = [...projects].sort((a, b) => (b.year || 0) - (a.year || 0));
-    return typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
-  }, [projects, limit]);
+  // Tri et slice - React 19 Compiler optimise automatiquement
+  const sorted = [...projects].sort((a, b) => (b.year || 0) - (a.year || 0));
+  const list = typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
 
 
   return (
@@ -34,7 +30,9 @@ export function CompactProjectList({ projects, limit }) {
                   alt={p.title}
                   fill
                   className="object-cover"
-                  sizes="128px"
+                  sizes="(max-width: 768px) 128px, 128px"
+                  quality={75}
+                  priority={false}
                 />
               ) : null}
             </div>
@@ -42,10 +40,7 @@ export function CompactProjectList({ projects, limit }) {
               <h3 className="flex items-center gap-2 text-h4 font-semibold tracking-tight text-fg transition-colors duration-300 ease-out group-hover:text-white">
                 {p.title}
                 {hasExternalLink && (
-                  <FaArrowUpRightFromSquare
-                    aria-hidden="true"
-                    className="shrink-0 text-[0.85em] text-fgSoft transition-colors duration-300 ease-out group-hover:text-white"
-                  />
+                  <ArrowUpRight className="shrink-0 w-[0.85em] h-[0.85em] text-fgSoft transition-colors duration-300 ease-out group-hover:text-white" />
                 )}
               </h3>
               <p

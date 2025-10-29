@@ -11,27 +11,8 @@ export const metadata = baseMetadata();
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Preload des fonts critiques pour améliorer FCP et LCP */}
-        <link
-          rel="preload"
-          href="/_next/static/media/inter-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/_next/static/media/jetbrainsmono-latin.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        {/* DNS Prefetch et Preconnect pour Google Fonts */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="fr" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
+      <head></head>
       <body className="antialiased bg-bg text-fg">
   <a href="#home" className="skip-link">Aller au contenu principal</a>
   {/* Header mobile/tablette (caché sur large) */}

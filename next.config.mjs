@@ -31,9 +31,6 @@ const nextConfig = {
 	// Compression gzip/brotli automatique
 	compress: true,
 
-	// Optimisation du bundle
-	swcMinify: true,
-
 	// Configuration Turbopack
 	turbopack: {
 		root: __dirname
@@ -53,6 +50,26 @@ const nextConfig = {
 	// Headers de sécurité et performance
 	async headers() {
 		return [
+			// Assets statiques - cache immutable
+			{
+				source: '/images/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable'
+					}
+				]
+			},
+			{
+				source: '/_next/static/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable'
+					}
+				]
+			},
+			// Pages HTML et autres - headers de sécurité + revalidation
 			{
 				source: '/:path*',
 				headers: [
@@ -74,17 +91,7 @@ const nextConfig = {
 					},
 					{
 						key: 'Cache-Control',
-						value: 'public, max-age=31536000, immutable'
-					},
-				],
-			},
-			// Cache plus court pour les pages HTML
-			{
-				source: '/',
-				headers: [
-					{
-						key: 'Cache-Control',
-						value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+						value: 'public, max-age=0, must-revalidate'
 					},
 				],
 			},

@@ -1,4 +1,5 @@
-import { memo } from 'react';
+'use client';
+import { memo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { social } from '../../data/social';
 import { getSocialIcon } from '../icons/social-icons';
@@ -45,10 +46,14 @@ SocialLink.displayName = 'SocialLink';
  * Footer unifié.
  * variant="sidebar" => style compact utilisé dans la colonne latérale.
  */
-export function Footer({ variant = 'default', className = '' }) {
+export const Footer = memo(function Footer({ variant = 'default', className = '' }) {
   const isSidebar = variant === 'sidebar';
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState(2025);
   const version = pkg?.version ? `v${pkg.version}` : null;
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer
@@ -79,4 +84,4 @@ export function Footer({ variant = 'default', className = '' }) {
       )}
     </footer>
   );
-}
+});
