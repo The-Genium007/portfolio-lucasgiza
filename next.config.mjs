@@ -9,6 +9,8 @@ const nextConfig = {
 	// Optimisations pour React 19 et production
 	reactStrictMode: true,
 
+	output: 'standalone',
+	
 	// Configuration du compiler pour React 19
 	compiler: {
 		// Suppression automatique des console.log en production
