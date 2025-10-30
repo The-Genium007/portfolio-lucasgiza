@@ -1,16 +1,15 @@
 services:
   nextjs:
+    image: nextjs-app:latest
+    
     build:
       context: .
       dockerfile: Dockerfile
-    
-    image: nextjs-app:latest
     
     environment:
       NODE_ENV: production
       PORT: 3000
     
-    # ✅ Réseau bridge classique au lieu de Swarm overlay
     networks:
       - dokploy-network
     
@@ -21,8 +20,15 @@ services:
       retries: 3
       start_period: 40s
     
-    # ❌ SUPPRIMEZ la section deploy: (spécifique Swarm)
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+      placement:
+        constraints:
+          - node.role == manager
     
     logging:
       driver: json-file
