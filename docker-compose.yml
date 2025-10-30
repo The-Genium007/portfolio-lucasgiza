@@ -3,18 +3,29 @@ services:
     image: portfolio-lucasgiza-frontend-vxoi1z:latest
 
     environment:
-      NODE_ENV: "production"
-      PORT: "3000"
+      NODE_ENV: production
+      PORT: 3000
 
     networks:
       dokploy-network:
         aliases:
           - nextjs-app
 
-    # Healthcheck TCP léger (n'utilise pas curl/wget/nc)
-    # Utilise Node présent dans l'image pour tester le port local.
+    # Healthcheck TCP léger utilisant Node
     healthcheck:
-      test: ["CMD-SHELL", "node -e \"const net=require('net'); const s=net.createConnection({port:parseInt(process.env.PORT||3000), host:'127.0.0.1'}, ()=>{ s.end(); process.exit(0); }); s.on('error', ()=>process.exit(1)); setTimeout(()=>process.exit(1),2000);\""]
+      test:
+        - CMD-SHELL
+        - >
+          node -e "
+          const net = require('net');
+          const port = parseInt(process.env.PORT || 3000);
+          const client = net.createConnection({ port, host: '127.0.0.1' }, () => {
+            client.end();
+            process.exit(0);
+          });
+          client.on('error', () => process.exit(1));
+          setTimeout(() => process.exit(1), 2000);
+          "
       interval: 30s
       timeout: 5s
       retries: 3
@@ -24,27 +35,25 @@ services:
       mode: replicated
       replicas: 1
 
-      # --------- Restart policy valide pour Swarm ----------
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
         window: 60s
-      # ----------------------------------------------------
 
       resources:
         limits:
           memory: 1024M
-          cpus: "1.0"
+          cpus: '1.0'
         reservations:
           memory: 512M
-          cpus: "0.5"
+          cpus: '0.5'
 
     logging:
-      driver: "json-file"
+      driver: json-file
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: 10m
+        max-file: '3'
 
 networks:
   dokploy-network:
