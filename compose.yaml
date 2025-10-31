@@ -1,7 +1,8 @@
 services:
   nextjs:
     image: nextjs-app:latest
-    
+    container_name: nextjs-app  # ← Nom fixe
+
     build:
       context: .
       dockerfile: Dockerfile
