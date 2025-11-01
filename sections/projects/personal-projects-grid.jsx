@@ -6,11 +6,16 @@ import { APP_SECTIONS } from '@/lib/constants';
 
 export function PersonalProjectsGrid({ limit }) {
   return (
-  <section id={APP_SECTIONS.PERSONAL_PROJECTS} className="pt-4">
+    <section id={APP_SECTIONS.PERSONAL_PROJECTS} className="pt-4">
       <SectionHeading title="Personal Projects" minimal />
       <CompactProjectList projects={personalProjects} limit={limit} />
       <div className="mt-10">
-  <Link href="/personal-projects" className="text-micro font-mono text-fgSoft hover:text-fg transition">Voir archive complète →</Link>
+        <Link
+          href="/personal-projects"
+          className="text-micro text-fgSoft hover:text-fg font-mono transition"
+        >
+          View full archive →
+        </Link>
       </div>
     </section>
   );

@@ -6,7 +6,9 @@ export function SkillsSection() {
     <section id="skills" className="space-y-8">
       <div className="space-y-3">
         <SectionHeading title="Skills" minimal />
-        <p className="max-w-2xl text-[13px] leading-relaxed text-fgSoft">Sélection de compétences techniques structurées par domaine. Cliquez sur un badge pour plus de détails.</p>
+        <p className="text-fgSoft max-w-2xl text-[13px] leading-relaxed">
+          Selection of technical skills structured by domain. Click on a badge for more details.
+        </p>
       </div>
       <SkillsGrid />
     </section>

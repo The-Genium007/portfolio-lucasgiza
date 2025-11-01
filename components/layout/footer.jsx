@@ -58,28 +58,37 @@ export const Footer = memo(function Footer({ variant = 'default', className = ''
   return (
     <footer
       role="contentinfo"
-      className={`text-fgSoft/70 ${isSidebar ? 'space-y-6' : 'py-12 text-center space-y-6'} ${className}`}
+      className={`text-fgSoft/70 ${isSidebar ? 'space-y-6' : 'space-y-6 py-12 text-center'} ${className}`}
     >
       <ul
         className={`flex items-center justify-center gap-4 ${isSidebar ? 'text-sm' : 'text-xs'} `}
       >
-        {social.map(s => (
+        {social.map((s) => (
           <SocialLink key={s.href || s.label} social={s} isSidebar={isSidebar} />
         ))}
       </ul>
       {!isSidebar ? (
-        <p className="text-mini leading-relaxed text-fgSoft/70">
-          Design inspiré. Construit avec Next.js & Tailwind. {version && (
-            <span className="ml-1 text-[10px] font-mono text-fgSoft/60" aria-label="Version du site">
+        <p className="text-mini text-fgSoft/70 leading-relaxed">
+          Inspired design. Built with Next.js & Tailwind.{' '}
+          {version && (
+            <span
+              className="text-fgSoft/60 ml-1 font-mono text-[10px]"
+              aria-label="Version du site"
+            >
               {version}
             </span>
           )}
         </p>
       ) : (
         <div className="space-y-2">
-          <p className="text-[11px]">&copy; {year} Lucas GIZA. Tous droits réservés {version && (
-            <span className="ml-1 font-mono text-fgSoft/60" aria-label="Version du site">{version}</span>
-          )}</p>
+          <p className="text-[11px]">
+            &copy; {year} Lucas GIZA. All rights reserved.{' '}
+            {version && (
+              <span className="text-fgSoft/60 ml-1 font-mono" aria-label="Version du site">
+                {version}
+              </span>
+            )}
+          </p>
         </div>
       )}
     </footer>

@@ -8,7 +8,7 @@ export function Hero() {
       aria-labelledby="about-heading"
     >
       <h2 id="about-heading" className="sr-only">
-        À propos
+        About
       </h2>
       <div className="text-body text-fgSoft max-w-2xl space-y-5 leading-relaxed">
         <p>

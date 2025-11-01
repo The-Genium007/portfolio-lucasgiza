@@ -69,7 +69,7 @@ export function ExperienceList({ limit, showMoreLink = false }) {
               href="/experience"
               className="text-micro text-fgSoft hover:text-fg font-mono transition"
             >
-              Voir expérience complète →
+              View full experience →
             </Link>
           </div>
         )}

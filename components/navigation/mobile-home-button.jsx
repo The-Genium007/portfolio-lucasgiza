@@ -79,11 +79,11 @@ export function MobileHomeButton({ className }) {
   return (
     <div
       className={cn(
-        'fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6 lg:hidden',
-        'flex items-center justify-center group',
+        'fixed right-4 bottom-4 z-50 md:right-6 md:bottom-6 lg:hidden',
+        'group flex items-center justify-center',
         'transition-all duration-300',
-        state.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-        state.inactive && 'opacity-40 hover:opacity-100 focus-within:opacity-100',
+        state.visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+        state.inactive && 'opacity-40 focus-within:opacity-100 hover:opacity-100',
         className
       )}
     >
@@ -96,9 +96,9 @@ export function MobileHomeButton({ className }) {
         variant="solid"
         size="md"
         className={cn(
-          'relative h-12 w-12 p-0 rounded-full',
+          'relative h-12 w-12 rounded-full p-0',
           // Glassmorphism base
-          'backdrop-blur-md bg-[var(--glass-a12)] hover:bg-[var(--glass-a18)]',
+          'bg-[var(--glass-a12)] backdrop-blur-md hover:bg-[var(--glass-a18)]',
           'border border-[var(--glass-a18)] hover:border-[var(--glass-a25)]',
           // Glow / ring custom
           'shadow-[0_2px_8px_-2px_rgba(0,0,0,0.6),0_0_0_1px_var(--glass-a15)]',
@@ -108,13 +108,18 @@ export function MobileHomeButton({ className }) {
           // Focus visible ring accent + glass outline
           'focus-visible:shadow-[0_0_0_2px_var(--color-bg),0_0_0_4px_var(--color-accent)]',
           // Before pseudo pour halo interne gradient léger
-          'before:absolute before:inset-0 before:rounded-full before:pointer-events-none before:bg-[radial-gradient(circle_at_35%_30%,var(--glass-a22),transparent_72%)]',
+          'before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:bg-[radial-gradient(circle_at_35%_30%,var(--glass-a22),transparent_72%)]',
           // After pseudo pour anneau externe flou en hover
-          'after:absolute after:-inset-1 after:rounded-full after:opacity-0 after:blur after:transition-opacity after:bg-[radial-gradient(circle,var(--color-accent-hover)_0%,transparent_60%)] hover:after:opacity-40'
+          'after:absolute after:-inset-1 after:rounded-full after:bg-[radial-gradient(circle,var(--color-accent-hover)_0%,transparent_60%)] after:opacity-0 after:blur after:transition-opacity hover:after:opacity-40'
         )}
       >
-        <HomeIcon size={22} className="text-[var(--color-fg)] transition-transform duration-500 group-hover:rotate-[-12deg]" />
-        <span id={tooltipId} className="sr-only">Retour à l'accueil</span>
+        <HomeIcon
+          size={22}
+          className="text-[var(--color-fg)] transition-transform duration-500 group-hover:rotate-[-12deg]"
+        />
+        <span id={tooltipId} className="sr-only">
+          Back to home
+        </span>
       </Button>
     </div>
   );

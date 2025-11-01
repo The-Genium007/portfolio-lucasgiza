@@ -71,7 +71,7 @@ export function SkillModal({ skill, onClose }) {
             data-focus
             onClick={onClose}
             className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[11px] font-mono uppercase tracking-wide text-fgSoft hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-accent focus:outline-none cursor-pointer"
-          >Fermer</button>
+          >Close</button>
         </div>
       </div>
     </div>,

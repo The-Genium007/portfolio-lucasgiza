@@ -63,7 +63,7 @@ export function Sidebar() {
                     className={`nav-link-anim relative inline-block ${isActive ? 'is-active text-white scale-105' : 'text-fgSoft'} `}
                   >
                     {LABELS[id]}
-                    {isActive && <span className="sr-only"> (section en cours)</span>}
+                    {isActive && <span className="sr-only"> (section in coming)</span>}
                   </span>
                 </Link>
               </li>
