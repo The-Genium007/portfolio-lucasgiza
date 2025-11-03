@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Container } from '@/components/ui/container';
-import { Button } from '@/components/ui/button-new';
+import { Button } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Page not found • 404'

@@ -16,7 +16,7 @@ const SocialLink = memo(({ social: s, isSidebar }) => {
   const Wrapper = isEmail ? 'a' : Link;
   const props = isEmail
     ? { href: mailto, title: email, 'aria-label': 'Envoyer un email' }
-    : { href: s.href, title: s.label, 'aria-label': s.label };
+    : { href: s.href, title: s.label, 'aria-label': s.label, target: '_blank', rel: 'noopener noreferrer' };
 
   return (
     <li key={mailto || s.href || s.label}>

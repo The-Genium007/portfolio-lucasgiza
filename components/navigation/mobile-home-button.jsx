@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from 'next/navigation';
 import { useEffect, useReducer, useCallback, useRef } from 'react';
-import { Button } from '../ui/button-new';
+import { Button } from '../ui/button';
 import { HomeIcon } from '@/components/icons/home-icon';
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
