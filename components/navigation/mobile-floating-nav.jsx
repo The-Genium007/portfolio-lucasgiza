@@ -174,16 +174,16 @@ export function MobileFloatingNav() {
                   <Link
                     href={`/#${id}`}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`focus-visible:ring-accent/60 group flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${isActive ? 'bg-accent/15 font-semibold text-fg' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
+                    className={`focus-visible:ring-accent/60 group focus-visible:ring-offset-bg flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${isActive ? 'bg-accent/15 text-fg font-semibold' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
                     onClick={close}
                   >
                     <span>
                       {id === APP_SECTIONS.HOME ? 'HOME' : id.toUpperCase()}
-                      {isActive && <span className="sr-only"> (section actuelle)</span>}
+                      {isActive && <span className="sr-only"> (current section)</span>}
                     </span>
                     {isActive && (
                       <span
-                        className="ml-3 inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_0_2px_var(--color-bg)]"
+                        className="bg-accent ml-3 inline-block h-2 w-2 rounded-full shadow-[0_0_0_2px_var(--color-bg)]"
                         aria-hidden="true"
                       />
                     )}

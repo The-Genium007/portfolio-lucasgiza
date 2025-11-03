@@ -11,11 +11,11 @@ export const metadata = baseMetadata();
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
       <head></head>
       <body className="antialiased bg-bg text-fg">
-  <a href="#home" className="skip-link">Aller au contenu principal</a>
-  {/* Header mobile/tablette (caché sur large) */}
+  <a href="#home" className="skip-link">Skip to main content</a>
+  {/* Mobile/tablet header (hidden on large) */}
   <MobileHeader />
         <div className="relative mx-auto lg:flex" id="home">
           <div className="pointer-events-none fixed inset-0 -z-10">
@@ -25,13 +25,13 @@ export default function RootLayout({ children }) {
           <div className="w-full lg:ml-80 lg:px-16 pt-4 lg:pt-20 pb-0 lg:pb-0">
             <main className="space-y-16 lg:space-y-32">
             {children}
-            {/* Footer global (masqué sur grands écrans car déjà dans la sidebar) */}
+            {/* Global footer (hidden on large screens as already in sidebar) */}
             <div className="lg:hidden mt-8 pt-6">
               <Footer />
             </div>
             </main>
           </div>
-          {/* Bouton retour accueil mobile/tablette (affiché hors page d'accueil) */}
+          {/* Mobile/tablet home button (displayed outside homepage) */}
           <MobileHomeButton />
         </div>
       </body>

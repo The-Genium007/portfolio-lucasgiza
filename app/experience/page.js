@@ -3,9 +3,9 @@ import { SectionHeading } from '@/components/ui/section-heading';
 import { baseMetadata } from '@/lib/metadata';
 
 export const metadata = baseMetadata({
-  title: 'Expérience – Lucas GIZA',
-  openGraph: { title: 'Expérience – Lucas GIZA' },
-  twitter: { title: 'Expérience – Lucas GIZA' }
+  title: 'Experience – Lucas GIZA',
+  openGraph: { title: 'Experience – Lucas GIZA' },
+  twitter: { title: 'Experience – Lucas GIZA' }
 });
 
 export default function ExperiencePage() {
@@ -13,7 +13,7 @@ export default function ExperiencePage() {
     <div className="space-y-16" id="experience">
       <div>
         <SectionHeading title="Full Experience" minimal />
-        <p className="max-w-2xl text-[13px] leading-relaxed text-fgSoft">Historique détaillé des expériences professionnelles avec réalisations et pile technique. Contenu factice destiné à illustrer la mise en page.</p>
+        <p className="max-w-2xl text-[13px] leading-relaxed text-fgSoft">Detailed history of professional experiences with achievements and technical stack. Placeholder content intended to illustrate the layout.</p>
       </div>
       <ExperienceList />
     </div>
