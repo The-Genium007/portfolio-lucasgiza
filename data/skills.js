@@ -1,6 +1,20 @@
 export const skills = [
   // Catégorie Front-end
   {
+    slug: 'html',
+    name: 'HTML',
+    category: 'front-end',
+    level: 'proficient',
+    description: `Semantic markup, forms & validation, SEO best practices, accessibility attributes.`
+  },
+  {
+    slug: 'css',
+    name: 'CSS',
+    category: 'front-end',
+    level: 'proficient',
+    description: `Flexbox & Grid, animations, responsive design, CSS variables, modern layouts.`
+  },
+  {
     slug: 'react',
     name: 'React',
     category: 'front-end',
@@ -10,9 +24,16 @@ export const skills = [
   {
     slug: 'nextjs',
     name: 'Next.js',
-    category: 'back-end',
+    category: 'front-end',
     level: 'beginner',
     description: `App Router basics, pages & routes, server/client components, simple deployment.`
+  },
+  {
+    slug: 'redux',
+    name: 'Redux',
+    category: 'front-end',
+    level: 'beginner',
+    description: `Basic state management, simple actions/reducers, connecting components to store.`
   },
   {
     slug: 'tailwind',
