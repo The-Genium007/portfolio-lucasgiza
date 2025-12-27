@@ -1,5 +1,5 @@
 'use client';
-import { memo, useEffect, useState } from 'react';
+import { memo } from 'react';
 import Link from 'next/link';
 import { social } from '../../data/social';
 import { getSocialIcon } from '../icons/social-icons';
@@ -8,8 +8,11 @@ import pkg from '../../package.json';
 /**
  * Composant SocialLink memoizé pour optimiser le rendu
  */
-const SocialLink = memo(({ social: s, isSidebar }) => {
-  const Icon = getSocialIcon(s.label);
+const SocialLink = memo(({ social: s }) => {
+  const icon = getSocialIcon(s.label, {
+    className: 'w-5 h-5 transition-transform duration-200 ease-out group-hover:scale-110',
+    'aria-hidden': true,
+  });
   const isEmail = s.label.toLowerCase() === 'email' && Array.isArray(s.parts);
   const email = isEmail ? s.parts.join('') : null;
   const mailto = isEmail ? `mailto:${email}` : s.href;
@@ -24,11 +27,8 @@ const SocialLink = memo(({ social: s, isSidebar }) => {
         {...props}
         className="group transition hover:text-fg flex items-center justify-center w-5 h-5"
       >
-        {Icon ? (
-          <Icon
-            className="w-5 h-5 transition-transform duration-200 ease-out group-hover:scale-110"
-            aria-hidden="true"
-          />
+        {icon ? (
+          icon
         ) : (
           <span className="text-micro font-mono transition-transform duration-200 ease-out group-hover:scale-110">
             {isEmail ? '@' : s.label}
@@ -48,12 +48,8 @@ SocialLink.displayName = 'SocialLink';
  */
 export const Footer = memo(function Footer({ variant = 'default', className = '' }) {
   const isSidebar = variant === 'sidebar';
-  const [year, setYear] = useState(2025);
+  const year = new Date().getFullYear();
   const version = pkg?.version ? `v${pkg.version}` : null;
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
 
   return (
     <footer
@@ -64,7 +60,7 @@ export const Footer = memo(function Footer({ variant = 'default', className = ''
         className={`flex items-center justify-center gap-4 ${isSidebar ? 'text-sm' : 'text-xs'} `}
       >
         {social.map((s) => (
-          <SocialLink key={s.href || s.label} social={s} isSidebar={isSidebar} />
+          <SocialLink key={s.href || s.label} social={s} />
         ))}
       </ul>
       {!isSidebar ? (

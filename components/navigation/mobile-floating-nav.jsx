@@ -11,7 +11,6 @@ const NAV_IDS = [APP_SECTIONS.HOME, ...SECTION_ORDER.filter(id => id !== APP_SEC
 
 export function MobileFloatingNav() {
   const [open, setOpen] = useState(false);
-  const [announcement, setAnnouncement] = useState('');
   const [dragY, setDragY] = useState(0); // déplacement vertical courant durant un swipe
   const [isDragging, setIsDragging] = useState(false);
   const panelRef = useRef(null);
@@ -22,6 +21,7 @@ export function MobileFloatingNav() {
   const effectiveActive = isHomePath
     ? (active && active !== APP_SECTIONS.HOME ? active : APP_SECTIONS.ABOUT)
     : APP_SECTIONS.HOME;
+  const announcement = open ? 'Menu ouvert' : 'Menu fermé';
   const touchStartY = useRef(null);
   const touchLastY = useRef(null);
 
@@ -58,11 +58,6 @@ export function MobileFloatingNav() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [handleClickOutside]);
-
-  // Annonce aria-live à chaque changement d'état d'ouverture
-  useEffect(() => {
-    setAnnouncement(open ? 'Menu ouvert' : 'Menu fermé');
-  }, [open]);
 
   // Gestion du swipe vers le bas pour fermer le panneau.
   useEffect(() => {

@@ -12,7 +12,7 @@ export const SOCIAL_ICONS = {
  * Retourne le composant d'icône correspondant à un label.
  * On normalise : accents enlevés, minuscule.
  */
-export function getSocialIcon(label) {
+export function getSocialIcon(label, props = {}) {
   if (!label) return null;
   const key = label
     .toString()
@@ -20,5 +20,6 @@ export function getSocialIcon(label) {
     .replace(/\p{Diacritic}/gu, '')
     .trim()
     .toLowerCase();
-  return SOCIAL_ICONS[key] || null;
+  const Icon = SOCIAL_ICONS[key];
+  return Icon ? <Icon {...props} /> : null;
 }
