@@ -1,32 +1,32 @@
 export const skills = [
   // Catégorie Front-end
   {
-    slug: 'html',
-    name: 'HTML',
+    slug: 'html-css',
+    name: 'HTML/CSS',
     category: 'front-end',
     level: 'proficient',
-    description: `Semantic markup, forms & validation, SEO best practices, accessibility attributes.`
+    description: `Semantic markup, forms & validation, SEO best practices, accessibility attributes, Flexbox & Grid, animations, responsive design, CSS variables, modern layouts.`
   },
   {
-    slug: 'css',
-    name: 'CSS',
+    slug: 'javascript-typescript',
+    name: 'JavaScript/TypeScript',
     category: 'front-end',
     level: 'proficient',
-    description: `Flexbox & Grid, animations, responsive design, CSS variables, modern layouts.`
+    description: `ES6+ (modules, async/await), DOM & events, patterns (FP/OOP), TypeScript typing & tooling, performance & profiling, tooling (Vite/Webpack), testing (Jest).`
   },
   {
-    slug: 'react',
-    name: 'React',
+    slug: 'react-nextjs',
+    name: 'React/Next.js',
     category: 'front-end',
     level: 'proficient',
-    description: `Reusable components, state management (custom hooks, context), performance optimization (memoization, experimental Suspense), accessibility best practices.`
+    description: `Reusable components, state management (custom hooks, context), performance basics, Next.js App Router, pages & routes, server/client components, deployment basics.`
   },
   {
-    slug: 'nextjs',
-    name: 'Next.js',
+    slug: 'vuejs-nuxtjs',
+    name: 'Vue.js/Nuxt.js',
     category: 'front-end',
-    level: 'beginner',
-    description: `App Router basics, pages & routes, server/client components, simple deployment.`
+    level: 'proficient',
+    description: `Single-file components, component composition, reactivity, directives, routing basics, Nuxt app structure, SSR/SSG basics.`
   },
   {
     slug: 'redux',
@@ -34,13 +34,6 @@ export const skills = [
     category: 'front-end',
     level: 'beginner',
     description: `Basic state management, simple actions/reducers, connecting components to store.`
-  },
-  {
-    slug: 'tailwind',
-    name: 'TailwindCSS',
-    category: 'front-end',
-    level: 'beginner',
-    description: `Core utilities, responsive, spacing/colors/typography, simple components.`
   },
   {
     slug: 'accessibility',
@@ -56,27 +49,13 @@ export const skills = [
     level: 'beginner',
     description: `Lighthouse basics, lazy images, basic code-splitting, simple best practices.`
   },
-  {
-    slug: 'javascript',
-    name: 'JavaScript',
-    category: 'front-end',
-    level: 'proficient',
-    description: `ES6+ (modules, async/await), DOM & events, patterns (FP/OOP), performance & profiling, tooling (Vite/Webpack), testing (Jest), TS interop.`
-  },
   // ctégorie Back-end
   {
     slug: 'nodejs',
     name: 'Node.js',
     category: 'back-end',
     level: 'beginner',
-    description: `Simple server, basic Express, routes & middleware, environment variables.`
-  },
-  {
-    slug: 'n8n',
-    name: 'n8n',
-    category: 'back-end',
-    level: 'proficient',
-    description: `Low‑code automation: webhooks, multi‑step orchestrations, integrations (HTTP, Slack, GitHub…), encrypted credentials/variables, error handling/retries, self‑hosting (Docker), cron triggers, API rate‑limit handling.`
+    description: `Simple server, basic Express, routes & middleware, environment variables. Currently learning; my #1 priority.`
   },
   {
     slug: 'postgresql',
@@ -92,14 +71,21 @@ export const skills = [
     level: 'beginner',
     description: `Simple cache, key/value, TTL, basic data structures (lists/sets).`
   },
-  {
-    slug: 'directus',
-    name: 'Directus CMS',
-    category: 'back-end',
-    level: 'beginner',
-    description: `Basic collections, simple permissions, basic REST/GraphQL, asset uploads.`
-  },
   // Catégorie dev-ops
+  {
+    slug: 'docker',
+    name: 'Docker',
+    category: 'dev-ops',
+    level: 'beginner',
+    description: `Images & containers, Dockerfiles, volumes, networking, Compose basics.`
+  },
+  {
+    slug: 'docker-swarm',
+    name: 'Docker Swarm',
+    category: 'dev-ops',
+    level: 'beginner',
+    description: `Swarm mode, services & stacks, replicas, rolling updates, overlay networks.`
+  },
   {
     slug: 'dokploy',
     name: 'Dokploy',
@@ -108,27 +94,20 @@ export const skills = [
     description: `Deploy a Docker app, environment variables, domains/SSL via the UI.`
   },
   {
-    slug: 'loki',
-    name: 'Grafana Loki',
+    slug: 'cloudflare-tunnel',
+    name: 'Cloudflare Tunnel',
     category: 'dev-ops',
     level: 'beginner',
-    description: `Collect logs with Promtail, simple search in Grafana, basic filters.`
+    description: `Secure tunnels, expose private services, basic access policies, DNS routing.`
   },
  
   // Catégorie Others
   {
-    slug: 'notion',
-    name: 'Notion',
-    category: 'others',
-    level: 'proficient',
-    description: `Linked databases, relations/rollups, advanced templates, dashboards, permissions & sharing, light automations.`
-  },
-  {
-    slug: 'figma',
-    name: 'Figma',
+    slug: 'git',
+    name: 'Git',
     category: 'others',
     level: 'beginner',
-    description: `Frames, basic Auto‑Layout, basic styles, simple components, asset export.`
+    description: `Commit/pull/push, branches, simple PRs, basic merge/rebase.`
   },
   {
     slug: 'github-actions',
@@ -138,11 +117,18 @@ export const skills = [
     description: `Simple workflow (build/test), basic secrets, npm cache, basic jobs.`
   },
   {
-    slug: 'git',
-    name: 'Git',
+    slug: 'figma',
+    name: 'Figma',
     category: 'others',
     level: 'beginner',
-    description: `Commit/pull/push, branches, simple PRs, basic merge/rebase.`
+    description: `Frames, basic Auto‑Layout, basic styles, simple components, asset export.`
+  },
+  {
+    slug: 'notion',
+    name: 'Notion',
+    category: 'others',
+    level: 'proficient',
+    description: `Linked databases, relations/rollups, advanced templates, dashboards, permissions & sharing, light automations.`
   },
 ];
 

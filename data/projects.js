@@ -1,5 +1,32 @@
 export const projects = [
   {
+    title: 'Tumult',
+    slug: 'tumult',
+    description: 'Application for game masters running tabletop RPGs. It lets you launch polls across multiple livestreams and aggregate data from several streams at once.',
+    highlights: [
+      'Vue.js front-end with Nuxt 3 and Nuxt UI',
+      'AdonisJS v6 API with Lucid ORM (PostgreSQL)',
+      'Real-time polls via Transmit (WebSocket)',
+      'Redis 7 caching + session/JWT auth',
+      'Dockerized infra with Dokploy and GitHub Actions'
+    ],
+    tech: [
+      'Vue.js',
+      'Nuxt 3',
+      'AdonisJS v6',
+      'PostgreSQL',
+      'Redis',
+      'Transmit',
+      'Vite PWA',
+      'Docker',
+      'Dokploy',
+      'GitHub Actions',
+      'Twitch Helix API',
+      'Sentry'
+    ],
+    year: 2025
+  },
+  {
     title: 'Personal Portfolio',
     slug: 'personal-portfolio',
     description: 'My personal portfolio built with Next.js, React and Tailwind CSS. Simple, fast, and easy to maintain.',
