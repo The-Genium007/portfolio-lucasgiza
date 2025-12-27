@@ -24,6 +24,8 @@ export const projects = [
       'Twitch Helix API',
       'Sentry'
     ],
+    repo: 'https://github.com/The-Genium007/Tumulte',
+    image: '/images/projects/tumulte.png',
     year: 2025
   },
   {
