@@ -1,7 +1,7 @@
 export const experience = [
   {
     company: 'OpenClassrooms',
-    role: 'JavaScript React Developer Student',
+    role: 'JavaScript software Developer Student',
     start: '2025-01',
     end: '2025-10',
     location: 'Remote (online classroom)',
