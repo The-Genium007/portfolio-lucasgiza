@@ -8,7 +8,7 @@ export function ProjectsGrid({ limit, showArchiveLink = true }) {
   return (
     <section id={APP_SECTIONS.PROJECTS} className="pt-4">
       <SectionHeading title="Projects" minimal />
-      <CompactProjectList projects={projects} limit={limit} />
+      <CompactProjectList projects={projects} limit={limit} variant="compact" />
       {showArchiveLink && (
         <div className="mt-10">
           <Link

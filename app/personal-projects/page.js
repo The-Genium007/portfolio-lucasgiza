@@ -16,7 +16,7 @@ export default function PersonalProjectsArchivePage() {
         <SectionHeading title="All Personal Projects" minimal />
         <p className="max-w-2xl text-[13px] leading-relaxed text-fgSoft">Complete archive of my experimental personal projects, internal tools and learning prototypes.</p>
       </div>
-      <CompactProjectList projects={personalProjects} />
+      <CompactProjectList projects={personalProjects} variant="full" />
     </div>
   );
 }

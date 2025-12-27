@@ -8,7 +8,7 @@ export function PersonalProjectsGrid({ limit }) {
   return (
     <section id={APP_SECTIONS.PERSONAL_PROJECTS} className="pt-4">
       <SectionHeading title="Personal Projects" minimal />
-      <CompactProjectList projects={personalProjects} limit={limit} />
+      <CompactProjectList projects={personalProjects} limit={limit} variant="compact" />
       <div className="mt-10">
         <Link
           href="/personal-projects"

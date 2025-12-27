@@ -8,17 +8,21 @@ import { ArrowUpRight } from './icons';
  * @param {Object} props
  * @param {Array} props.projects - Tableau de projets { slug, title, description, tech[], year, repo?, links? }
  * @param {number} [props.limit] - Limite d'items affichés.
+ * @param {'compact'|'full'} [props.variant] - Densité d'affichage.
  */
 
-export function CompactProjectList({ projects, limit }) {
+export function CompactProjectList({ projects, limit, variant = 'compact' }) {
   // Tri et slice - React 19 Compiler optimise automatiquement
   const sorted = [...projects].sort((a, b) => (b.year || 0) - (a.year || 0));
   const list = typeof limit === 'number' ? sorted.slice(0, limit) : sorted;
+  const isCompact = variant === 'compact';
 
 
   return (
-  <ul className="space-y-6 no-hover-underline">
+  <ul className={isCompact ? "space-y-6 no-hover-underline" : "space-y-8 no-hover-underline"}>
       {list.map((p) => {
+        const techList = Array.isArray(p.tech) ? p.tech : [];
+        const highlights = Array.isArray(p.highlights) ? p.highlights : [];
         const href = p.repo || p.links?.[0]?.url;
         const hasExternalLink = Boolean(href);
         const Content = (
@@ -36,7 +40,7 @@ export function CompactProjectList({ projects, limit }) {
                 />
               ) : null}
             </div>
-            <div className="flex-1 space-y-1.5">
+            <div className={isCompact ? "flex-1 space-y-1.5" : "flex-1 space-y-2"}>
               <h3 className="flex items-center gap-2 text-h4 font-semibold tracking-tight text-fg transition-colors duration-300 ease-out group-hover:text-white">
                 {p.title}
                 {hasExternalLink && (
@@ -44,17 +48,31 @@ export function CompactProjectList({ projects, limit }) {
                 )}
               </h3>
               <p
-                className="line-clamp-2 text-micro leading-snug text-fgSoft transition-colors duration-300 ease-out group-hover:text-white/90"
+                className={
+                  isCompact
+                    ? "line-clamp-2 text-micro leading-snug text-fgSoft transition-colors duration-300 ease-out group-hover:text-white/90"
+                    : "text-micro leading-relaxed text-fgSoft transition-colors duration-300 ease-out group-hover:text-white/90"
+                }
               >
                 {p.description}
               </p>
               <div className="flex flex-wrap gap-2 pt-1">
-                {p.tech.slice(0, 4).map((t) => (
+                {(isCompact ? techList.slice(0, 4) : techList).map((t) => (
                   <Badge key={t} size="xs" variant="pill">
                     {t}
                   </Badge>
                 ))}
               </div>
+              {!isCompact && highlights.length > 0 ? (
+                <ul className="space-y-1.5 pt-2 text-mini text-fgSoft/90">
+                  {highlights.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-fgSoft/70" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </div>
         );

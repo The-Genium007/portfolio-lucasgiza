@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         <SectionHeading title="All Projects" minimal />
         <p className="max-w-2xl text-[13px] leading-relaxed text-fgSoft">Complete archive of various technical projects (demos, prototypes, front-end explorations). Each entry presents a short description and main technologies.</p>
       </div>
-      <CompactProjectList projects={projects} />
+      <CompactProjectList projects={projects} variant="full" />
     </div>
   );
 }
