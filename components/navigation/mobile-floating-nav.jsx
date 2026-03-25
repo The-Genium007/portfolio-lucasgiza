@@ -5,214 +5,202 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { APP_SECTIONS, SECTION_ORDER } from '@/lib/constants';
 import { useScrollSpy } from '@/lib/useScrollSpy';
+import { cn } from '@/lib/cn';
 
-// Liste de navigation mobile : on force HOME en premier puis les autres sections (sauf personal-projects si ajoutée plus tard)
-const NAV_IDS = [APP_SECTIONS.HOME, ...SECTION_ORDER.filter(id => id !== APP_SECTIONS.HOME && id !== APP_SECTIONS.PERSONAL_PROJECTS)];
+const NAV_ITEMS = [
+  { id: APP_SECTIONS.HOME, label: 'Home', href: '/#home' },
+  { id: APP_SECTIONS.ABOUT, label: 'About', href: '/#about' },
+  { id: APP_SECTIONS.EXPERIENCE, label: 'Experience', href: '/#experience' },
+  { id: APP_SECTIONS.SKILLS, label: 'Skills', href: '/#skills' },
+  { id: APP_SECTIONS.PROJECTS, label: 'Projects', href: '/#projects' },
+  { id: APP_SECTIONS.BLOG, label: 'Blog', href: '/blog', isPage: true },
+];
 
 export function MobileFloatingNav() {
   const [open, setOpen] = useState(false);
-  const [dragY, setDragY] = useState(0); // déplacement vertical courant durant un swipe
-  const [isDragging, setIsDragging] = useState(false);
-  const panelRef = useRef(null);
   const btnRef = useRef(null);
+  const panelRef = useRef(null);
   const pathname = usePathname();
   const active = useScrollSpy(SECTION_ORDER, { offset: 120 });
-  const isHomePath = pathname === '/';
-  const effectiveActive = isHomePath
-    ? (active && active !== APP_SECTIONS.HOME ? active : APP_SECTIONS.ABOUT)
-    : APP_SECTIONS.HOME;
-  const announcement = open ? 'Menu open' : 'Menu closed';
-  const touchStartY = useRef(null);
-  const touchLastY = useRef(null);
+  const isHome = pathname === '/';
+  const isBlog = pathname.startsWith('/blog');
 
-  // Callbacks memoizés pour optimiser les performances
-  const toggle = useCallback(() => setOpen(o => !o), []);
+  const toggle = useCallback(() => setOpen((o) => !o), []);
   const close = useCallback(() => setOpen(false), []);
 
-  // Fermer avec ESC
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') setOpen(false);
-  }, []);
-
+  // Lock body scroll when menu is open
   useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  // Close on ESC
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+  }, []);
 
-  // Focus trap minimal (ramener le focus sur le bouton à la fermeture)
+  // Focus trap: return focus to button on close
   useEffect(() => {
     if (!open && btnRef.current) {
       btnRef.current.focus({ preventScroll: true });
     }
   }, [open]);
 
-  // Fermer si clic extérieur
-  const handleClickOutside = useCallback((e) => {
-    if (!open) return;
-    if (panelRef.current && !panelRef.current.contains(e.target) && !btnRef.current.contains(e.target)) {
-      setOpen(false);
+  const getIsActive = (item) => {
+    if (item.isPage) return isBlog;
+    if (isHome) {
+      if (item.id === APP_SECTIONS.HOME) return false;
+      return active === item.id || (!active && item.id === APP_SECTIONS.ABOUT);
     }
-  }, [open]);
+    return false;
+  };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [handleClickOutside]);
-
-  // Gestion du swipe vers le bas pour fermer le panneau.
-  useEffect(() => {
-    const el = panelRef.current;
-    if (!el) return;
-    function onTouchStart(e) {
-      if (!open) return;
-      if (e.touches.length !== 1) return;
-      touchStartY.current = e.touches[0].clientY;
-      touchLastY.current = e.touches[0].clientY;
-      setIsDragging(true);
-    }
-    function onTouchMove(e) {
-      if (!open || touchStartY.current == null) return;
-      touchLastY.current = e.touches[0].clientY;
-      const delta = touchLastY.current - touchStartY.current;
-      // On ne garde que les deltas positifs (vers le bas). On limite le drag à 140px pour éviter des extrapolations extrêmes.
-      setDragY(delta > 0 ? Math.min(delta, 140) : 0);
-    }
-    function onTouchEnd() {
-      if (!open || touchStartY.current == null || touchLastY.current == null) return;
-      const delta = touchLastY.current - touchStartY.current;
-      // Seuil: glissement vers le bas > 60px
-      if (delta > 60) {
-        setOpen(false);
-      }
-      // Reset animation state après fin du geste
-      setTimeout(() => {
-        setDragY(0);
-        setIsDragging(false);
-      }, 0);
-      touchStartY.current = null;
-      touchLastY.current = null;
-    }
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchmove', onTouchMove, { passive: true });
-    el.addEventListener('touchend', onTouchEnd);
-    return () => {
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchmove', onTouchMove);
-      el.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [open]);
+  // Filter out Home on homepage
+  const visibleItems = NAV_ITEMS.filter(
+    (item) => !(isHome && item.id === APP_SECTIONS.HOME)
+  );
 
   return (
     <div className="lg:hidden">
-      {/* Bouton flottant bas-droite */}
+      {/* Hamburger button — bottom right */}
       <button
         ref={btnRef}
         type="button"
         onClick={toggle}
         aria-haspopup="true"
         aria-expanded={open}
-        aria-controls="mobile-float-nav"
-        className="shadow-accent/30 after:border-accent/40 focus-visible:ring-accent/70 fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-accent text-white shadow-lg backdrop-blur-sm after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        aria-controls="mobile-menu-panel"
+        className={cn(
+          'fixed bottom-6 right-6 z-60 flex h-14 w-14 items-center justify-center rounded-full',
+          'border border-white/20 shadow-lg backdrop-blur-md transition-all duration-300',
+          open
+            ? 'bg-white/10 shadow-white/5'
+            : 'bg-accent/90 shadow-accent/30'
+        )}
       >
         <span className="sr-only">
           {open ? 'Close navigation menu' : 'Open navigation menu'}
         </span>
-        <div className="relative h-6 w-6" aria-hidden="true">
+        <div className="relative h-5 w-6" aria-hidden="true">
           <span
-            className={`absolute left-1/2 top-1/2 block h-0.5 w-6 -translate-x-1/2 -translate-y-2 bg-current transition-transform ${open ? 'translate-y-0 rotate-45' : ''}`}
-          ></span>
+            className={cn(
+              'absolute left-0 block h-0.5 w-6 rounded-full bg-white transition-all duration-300',
+              open ? 'top-2.5 rotate-45' : 'top-0.5'
+            )}
+          />
           <span
-            className={`absolute left-1/2 top-1/2 block h-0.5 w-6 -translate-x-1/2 -translate-y-0.5 bg-current transition-opacity ${open ? 'opacity-0' : 'opacity-100'}`}
-          ></span>
+            className={cn(
+              'absolute left-0 top-2.5 block h-0.5 w-6 rounded-full bg-white transition-all duration-300',
+              open ? 'scale-x-0 opacity-0' : 'opacity-100'
+            )}
+          />
           <span
-            className={`absolute left-1/2 top-1/2 block h-0.5 w-6 -translate-x-1/2 translate-y-1 bg-current transition-transform ${open ? 'translate-y-[0] -rotate-45' : ''}`}
-          ></span>
+            className={cn(
+              'absolute left-0 block h-0.5 w-6 rounded-full bg-white transition-all duration-300',
+              open ? 'top-2.5 -rotate-45' : 'top-4.5'
+            )}
+          />
         </div>
       </button>
 
-      {/* Overlay */}
-      {open && (
-        <div
-          className="animate-fade-in fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-          onClick={close}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Panneau avec animation de glissement lors du swipe */}
+      {/* Backdrop overlay */}
       <div
+        className={cn(
+          'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300',
+          open ? 'opacity-100' : 'pointer-events-none opacity-0'
+        )}
+        onClick={close}
+        aria-hidden="true"
+      />
+
+      {/* Full-height slide panel — right to left */}
+      <nav
         ref={panelRef}
-        id="mobile-float-nav"
-        /*
-          Transform dynamique :
-          - translateY suit dragY (max 140px)
-          - scale et opacity se réduisent légèrement avec le drag (facteur progressif)
-          - Pendant le drag on désactive la transition pour une sensation directe
-        */
-        style={{
-          transform: open
-            ? `translateY(${dragY}px) scale(${1 - Math.min(dragY, 140) / 900})`
-            : 'translateY(12px) scale(0.9)',
-          opacity: open ? 1 - Math.min(dragY, 140) / 300 : 0,
-          transition: isDragging
-            ? 'none'
-            : 'transform 300ms var(--ease-out, cubic-bezier(.22,.95,.51,1)) , opacity 260ms ease',
-        }}
-        className={`border-border/50 bg-bg/95 fixed bottom-24 right-4 z-50 w-[min(85vw,260px)] origin-bottom-right rounded-xl border p-4 shadow-xl backdrop-blur-md ${open ? '' : 'pointer-events-none'}`}
+        id="mobile-menu-panel"
+        aria-label="Mobile navigation"
+        className={cn(
+          'fixed inset-y-0 right-0 z-55 flex w-[min(80vw,320px)] flex-col',
+          'border-l border-white/10 bg-[#0a0a1a]/95 backdrop-blur-xl',
+          'transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]',
+          open ? 'translate-x-0' : 'translate-x-full'
+        )}
       >
-        <nav aria-label="Navigation mobile">
-          <ul className="flex flex-col gap-2 font-mono text-sm tracking-wide">
-            {NAV_IDS.filter((id) => !(isHomePath && id === APP_SECTIONS.HOME)).map((id) => {
-              const isActive = effectiveActive === id;
-              return (
-                <li key={id}>
-                  <Link
-                    href={`/#${id}`}
-                    aria-current={isActive ? 'page' : undefined}
-                    className={`focus-visible:ring-accent/60 group focus-visible:ring-offset-bg flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${isActive ? 'bg-accent/15 text-fg font-semibold' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
-                    onClick={close}
-                  >
-                    <span>
-                      {id === APP_SECTIONS.HOME ? 'HOME' : id.toUpperCase()}
-                      {isActive && <span className="sr-only"> (current section)</span>}
-                    </span>
-                    {isActive && (
-                      <span
-                        className="bg-accent ml-3 inline-block h-2 w-2 rounded-full shadow-[0_0_0_2px_var(--color-bg)]"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Link>
-                </li>
-              );
-            })}
-            {/* Blog : lien vers une page séparée */}
-            <li>
-              <Link
-                href="/blog"
-                aria-current={pathname.startsWith('/blog') ? 'page' : undefined}
-                className={`focus-visible:ring-accent/60 group focus-visible:ring-offset-bg flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${pathname.startsWith('/blog') ? 'bg-accent/15 text-fg font-semibold' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
-                onClick={close}
+        {/* Header area */}
+        <div className="flex items-center justify-between px-8 pt-10 pb-6">
+          <span className="font-mono text-xs tracking-[0.2em] uppercase text-fgSoft">
+            Navigation
+          </span>
+        </div>
+
+        {/* Separator */}
+        <div className="mx-8 h-px bg-white/10" />
+
+        {/* Nav links */}
+        <ul className="flex flex-1 flex-col justify-center gap-2 px-8">
+          {visibleItems.map((item, index) => {
+            const isItemActive = getIsActive(item);
+            return (
+              <li
+                key={item.id}
+                style={{
+                  transitionDelay: open ? `${80 + index * 50}ms` : '0ms',
+                }}
+                className={cn(
+                  'transition-all duration-300',
+                  open
+                    ? 'translate-x-0 opacity-100'
+                    : 'translate-x-8 opacity-0'
+                )}
               >
-                <span>
-                  BLOG
-                  {pathname.startsWith('/blog') && <span className="sr-only"> (current page)</span>}
-                </span>
-                {pathname.startsWith('/blog') && (
+                <Link
+                  href={item.href}
+                  aria-current={isItemActive ? 'page' : undefined}
+                  onClick={close}
+                  className={cn(
+                    'group flex items-center gap-3 rounded-lg px-4 py-3 font-mono text-lg tracking-wide transition-colors',
+                    isItemActive
+                      ? 'bg-accent/15 text-fg font-semibold'
+                      : 'text-fgSoft hover:bg-white/5 hover:text-fg'
+                  )}
+                >
+                  {/* Active indicator dot */}
                   <span
-                    className="bg-accent ml-3 inline-block h-2 w-2 rounded-full shadow-[0_0_0_2px_var(--color-bg)]"
+                    className={cn(
+                      'h-1.5 w-1.5 rounded-full transition-all duration-300',
+                      isItemActive ? 'bg-accent scale-100' : 'bg-transparent scale-0'
+                    )}
                     aria-hidden="true"
                   />
-                )}
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        {/* Région aria-live pour annoncer ouvert/fermé (visuellement masquée) */}
-        <span aria-live="polite" className="sr-only">
-          {announcement}
-        </span>
-      </div>
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Footer */}
+        <div className="px-8 pb-10">
+          <div className="h-px bg-white/10 mb-4" />
+          <p className="font-mono text-[11px] text-fgSoft/50 tracking-wide">
+            Lucas Giza &mdash; Portfolio
+          </p>
+        </div>
+      </nav>
+
+      {/* Aria live for screen readers */}
+      <span aria-live="polite" className="sr-only">
+        {open ? 'Menu open' : 'Menu closed'}
+      </span>
     </div>
   );
 }
