@@ -20,7 +20,7 @@ description: "Retour d'expérience sur OpenClaw : tokens, boutons Discord cassé
   failles de sécurité. Pourquoi j'ai viré le framework et codé mon propre bot
   avec Claude."
 thumbnail: /images/blog/openclaw2026.jpg
-draft: true
+draft: false
 ---
 Je suis développeur full-stack. Pas marketeur. En mars 2026, j'ai voulu tester les agents IA dont tout le monde parle "OpenClaw". Pas juste jouer avec un prompt vraiment mettre les mains dans un système agentique, voir ce que ça donne en conditions réelles. J'ai un side project, une app qui s'appelle Tumulte. C'était l'occasion parfaite : apprendre le marketing en laissant une IA le faire à ma place, et au passage comprendre où en vont vraiment ces technologies en 2026.
 
