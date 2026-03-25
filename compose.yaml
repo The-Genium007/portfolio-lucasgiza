@@ -40,17 +40,15 @@ services:
   # Proxy OAuth pour Decap CMS — micro-service qui gère l'authentification GitHub
   # Cloudflare Tunnel : auth.lucasgiza.com → http://decap-oauth:3000
   decap-oauth:
-    image: node:20-alpine
     container_name: decap-oauth  # ← Nom fixe, utilisé comme hostname dans Cloudflare Tunnel
 
-    working_dir: /app
-    command: >
-      sh -c "npm install netlify-cms-github-oauth-provider && npx netlify-cms-github-oauth-provider"
+    build:
+      context: ./oauth
+      dockerfile: Dockerfile
 
     environment:
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
       OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
-      ORIGIN: https://lucasgiza.com
 
     networks:
       - dokploy-network
@@ -60,7 +58,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 20s
+      start_period: 10s
 
     deploy:
       mode: replicated
