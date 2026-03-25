@@ -7,17 +7,16 @@ import { site } from '@/data/site';
 /**
  * BlogArticle
  * Rendu complet d'un article de blog.
- * - Header : lien retour, titre, date, temps de lecture, tags
- * - Thumbnail optionnel en pleine largeur
- * - Contenu HTML rendu dans un conteneur `prose` (plugin @tailwindcss/typography)
- * - JSON-LD structured data pour le SEO (schema BlogPosting)
- * - Lien retour en bas de page
+ * Design 2026 : header aéré, prose lisible, navigation proéminente.
+ *
+ * Security note: contentHtml and jsonLd are generated at build time from
+ * Markdown files committed to the git repository. No user-supplied or
+ * untrusted input is ever rendered — this is the standard static-blog
+ * pattern used by Next.js, Gatsby, Astro, etc.
  */
 export function BlogArticle({ post }) {
   const { title, date, category, tags, description, thumbnail, contentHtml, readingTime } = post;
 
-  // JSON-LD : données structurées pour Google (schema.org BlogPosting)
-  // Google lit ce bloc pour comprendre que c'est un article, qui l'a écrit, quand, etc.
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -37,86 +36,107 @@ export function BlogArticle({ post }) {
   };
 
   return (
-    <article className="space-y-8">
-      {/* JSON-LD injecté dans le <head> via un <script> — invisible pour l'utilisateur */}
+    <article className="mx-auto max-w-[720px]">
+      {/* JSON-LD SEO — trusted build-time data only */}
       <script
         type="application/ld+json"
-        // Safe: HTML is generated at build time from our own Markdown files in the git repo.
-        // No user-supplied content is rendered here — this is the standard pattern for static blogs.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header de l'article */}
-      <header className="space-y-4">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-1 text-micro font-mono text-fgSoft hover:text-fg transition-colors"
-        >
-          ← Back to blog
-        </Link>
+      {/* ── HEADER ── */}
+      <header className="mb-10 space-y-6 sm:mb-14">
+        {/* Back link + category row */}
+        <div className="flex items-center justify-between">
+          <Link
+            href="/blog"
+            className="group inline-flex items-center gap-2 rounded-lg px-3 py-2 -ml-3 text-[13px] font-medium text-fgSoft transition-all duration-200 hover:bg-white/5 hover:text-fg"
+          >
+            <span
+              className="inline-block transition-transform duration-200 group-hover:-translate-x-1"
+              aria-hidden="true"
+            >
+              &larr;
+            </span>
+            Back to blog
+          </Link>
+          {category && (
+            <Badge size="xs" variant="pill">
+              {category}
+            </Badge>
+          )}
+        </div>
 
-        <h1 className="text-h1 font-semibold tracking-tight text-fg lg:text-[36px]">
+        {/* Accent separator */}
+        <div className="h-px bg-gradient-to-r from-accent/40 via-accent/10 to-transparent" />
+
+        {/* Title */}
+        <h1 className="text-balance text-[28px] font-bold leading-[1.15] tracking-tight text-fg sm:text-[36px] lg:text-[42px]">
           {title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-3 text-micro font-mono text-fgSoft">
+        {/* Meta row */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[12px] text-fgSoft sm:text-[13px]">
           {date && <time dateTime={date}>{formatBlogDate(date)}</time>}
           {readingTime && (
             <>
-              <span aria-hidden="true">·</span>
+              <span className="text-border-strong" aria-hidden="true">
+                /
+              </span>
               <span>{readingTime} min read</span>
             </>
           )}
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {category && (
-            <Badge size="xs" variant="pill">
-              {category}
-            </Badge>
-          )}
-          {tags.map((tag) => (
-            <Badge key={tag} size="xs" variant="pill">
-              {tag}
-            </Badge>
-          ))}
-        </div>
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <Badge key={tag} size="xs" variant="pill">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
       </header>
 
-      {/* Thumbnail pleine largeur */}
+      {/* ── THUMBNAIL ── */}
       {thumbnail && (
-        <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-border">
+        <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-lg border border-border sm:mb-14">
           <Image
             src={thumbnail}
             alt={`Illustration for ${title}`}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
+            sizes="(max-width: 768px) 100vw, 720px"
             quality={80}
             priority
           />
         </div>
       )}
 
-      {/* Contenu Markdown rendu en HTML.
-          La classe "prose" vient du plugin @tailwindcss/typography.
-          On override les couleurs dans globals.css pour matcher notre thème.
-          Safe: HTML is generated at build time from our own Markdown files — no untrusted input. */}
+      {/* ── PROSE CONTENT ──
+           Trusted build-time HTML from git-committed Markdown files.
+           Sanitized by remark-html with { sanitize: true } in lib/blog.js. */}
       <div
-        className="prose prose-invert max-w-none"
+        className="blog-prose prose prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
 
-      {/* Lien retour en bas */}
-      <div className="pt-8 border-t border-border/40">
+      {/* ── FOOTER ── */}
+      <footer className="mt-14 border-t border-border/40 pt-8 sm:mt-20">
         <Link
           href="/blog"
-          className="text-micro text-fgSoft hover:text-fg font-mono transition"
+          className="group inline-flex items-center gap-2 rounded-lg px-3 py-2 -ml-3 text-[14px] font-medium text-fgSoft transition-all duration-200 hover:bg-white/5 hover:text-fg"
         >
-          ← Back to blog
+          <span
+            className="inline-block transition-transform duration-200 group-hover:-translate-x-1"
+            aria-hidden="true"
+          >
+            &larr;
+          </span>
+          Back to blog
         </Link>
-      </div>
+      </footer>
     </article>
   );
 }
