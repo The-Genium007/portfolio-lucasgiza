@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/lib/cn';
 
 /**
  * Badge
@@ -49,7 +49,7 @@ export function Badge({
   const fontFamily = mono ? 'font-mono tracking-wide' : '';
 
   return (
-    <Component className={clsx(base, dimClass, fontScaleClass, variantClass, fontFamily, className)}>
+    <Component className={cn(base, dimClass, fontScaleClass, variantClass, fontFamily, className)}>
       {children}
     </Component>
   );

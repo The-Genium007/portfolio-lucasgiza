@@ -21,7 +21,7 @@ export function MobileFloatingNav() {
   const effectiveActive = isHomePath
     ? (active && active !== APP_SECTIONS.HOME ? active : APP_SECTIONS.ABOUT)
     : APP_SECTIONS.HOME;
-  const announcement = open ? 'Menu ouvert' : 'Menu fermé';
+  const announcement = open ? 'Menu open' : 'Menu closed';
   const touchStartY = useRef(null);
   const touchLastY = useRef(null);
 
@@ -115,7 +115,7 @@ export function MobileFloatingNav() {
         className="shadow-accent/30 after:border-accent/40 focus-visible:ring-accent/70 fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-accent text-white shadow-lg backdrop-blur-sm after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       >
         <span className="sr-only">
-          {open ? 'Fermer le menu navigation' : 'Ouvrir le menu navigation'}
+          {open ? 'Close navigation menu' : 'Open navigation menu'}
         </span>
         <div className="relative h-6 w-6" aria-hidden="true">
           <span

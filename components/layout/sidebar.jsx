@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useScrollSpy } from '../../lib/useScrollSpy';
+import { useScrollSpy } from '@/lib/useScrollSpy';
 import { site } from '@/data/site';
-import { APP_SECTIONS } from '../../lib/constants';
-import { Footer } from './footer';
+import { APP_SECTIONS } from '@/lib/constants';
+import { Footer } from '@/components/layout/footer';
 
 const SECTION_IDS = [APP_SECTIONS.HOME, APP_SECTIONS.ABOUT, APP_SECTIONS.EXPERIENCE, APP_SECTIONS.SKILLS, APP_SECTIONS.PROJECTS];
 const LABELS = {
@@ -34,11 +33,7 @@ export function Sidebar() {
   const isHome = pathname === '/';
   const isBlog = pathname.startsWith('/blog');
 
-  // Memoize navigation items pour éviter les re-calculs
-  const navIds = useMemo(() =>
-    isHome ? SECTION_IDS.filter(id => id !== 'home') : SECTION_IDS,
-    [isHome]
-  );
+  const navIds = isHome ? SECTION_IDS.filter(id => id !== 'home') : SECTION_IDS;
 
   const active = useScrollSpy(SECTION_IDS, { offset: 140 });
 
@@ -58,7 +53,7 @@ export function Sidebar() {
         </div>
       </div>
       {/* Navigation centrée verticalement */}
-      <nav aria-label="Navigation principale" className="relative my-auto">
+      <nav aria-label="Main navigation" className="relative my-auto">
         <ul className="flex flex-col gap-3 text-[18px] font-mono font-medium tracking-wider">
           {navIds.map((id, index) => {
             const isActive = effectiveActive === id;
@@ -74,7 +69,7 @@ export function Sidebar() {
                     className={`nav-link-anim relative inline-block ${isActive ? 'is-active text-white scale-105' : 'text-fgSoft'} `}
                   >
                     {LABELS[id]}
-                    {isActive && <span className="sr-only"> (section in coming)</span>}
+                    {isActive && <span className="sr-only"> (current section)</span>}
                   </span>
                 </Link>
               </li>

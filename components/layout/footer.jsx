@@ -1,9 +1,9 @@
 'use client';
 import { memo } from 'react';
 import Link from 'next/link';
-import { social } from '../../data/social';
-import { getSocialIcon } from '../icons/social-icons';
-import pkg from '../../package.json';
+import { social } from '@/data/social';
+import { site } from '@/data/site';
+import { getSocialIcon } from '@/components/icons/social-icons';
 
 /**
  * Composant SocialLink memoizé pour optimiser le rendu
@@ -18,8 +18,8 @@ const SocialLink = memo(({ social: s }) => {
   const mailto = isEmail ? `mailto:${email}` : s.href;
   const Wrapper = isEmail ? 'a' : Link;
   const props = isEmail
-    ? { href: mailto, title: email, 'aria-label': 'Envoyer un email' }
-    : { href: s.href, title: s.label, 'aria-label': s.label, target: '_blank', rel: 'noopener noreferrer' };
+    ? { href: mailto, title: email, 'aria-label': 'Send an email' }
+    : { href: s.href, title: s.label, 'aria-label': `Visit ${s.label}`, target: '_blank', rel: 'noopener noreferrer' };
 
   return (
     <li key={mailto || s.href || s.label}>
@@ -49,7 +49,7 @@ SocialLink.displayName = 'SocialLink';
 export const Footer = memo(function Footer({ variant = 'default', className = '' }) {
   const isSidebar = variant === 'sidebar';
   const year = new Date().getFullYear();
-  const version = pkg?.version ? `v${pkg.version}` : null;
+  const version = site.version ? `v${site.version}` : null;
 
   return (
     <footer
@@ -69,7 +69,7 @@ export const Footer = memo(function Footer({ variant = 'default', className = ''
           {version && (
             <span
               className="text-fgSoft/60 ml-1 font-mono text-[10px]"
-              aria-label="Version du site"
+              aria-label="Site version"
             >
               {version}
             </span>
@@ -80,7 +80,7 @@ export const Footer = memo(function Footer({ variant = 'default', className = ''
           <p className="text-[11px]">
             &copy; {year} Lucas GIZA. All rights reserved.{' '}
             {version && (
-              <span className="text-fgSoft/60 ml-1 font-mono" aria-label="Version du site">
+              <span className="text-fgSoft/60 ml-1 font-mono" aria-label="Site version">
                 {version}
               </span>
             )}

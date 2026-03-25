@@ -1,20 +1,18 @@
 "use client";
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { skills, skillCategories } from '@/data/skills';
 import { Badge } from '@/components/ui/badge';
 import { FaPlus } from 'react-icons/fa6';
 import { SkillModal } from './skill-modal';
 
+const grouped = skillCategories.map(cat => ({
+  category: cat,
+  items: skills.filter(s => s.category === cat.key)
+}));
+
 export function SkillsGrid() {
   const [activeSlug, setActiveSlug] = useState(null);
-  const activeSkill = useMemo(() => skills.find(s => s.slug === activeSlug), [activeSlug]);
-
-  const grouped = useMemo(() => {
-    return skillCategories.map(cat => ({
-      category: cat,
-      items: skills.filter(s => s.category === cat.key)
-    }));
-  }, []);
+  const activeSkill = skills.find(s => s.slug === activeSlug);
 
   return (
     <div className="space-y-12">

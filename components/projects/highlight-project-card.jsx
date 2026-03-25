@@ -42,12 +42,12 @@ export function HighlightProjectCard({ project }) {
         </ul>
         <div className="mt-auto flex gap-4 text-micro font-mono">
           {project.repo && (
-            <Link href={project.repo} className="text-accent">
+            <Link href={project.repo} target="_blank" rel="noopener noreferrer" className="text-accent">
               Code
             </Link>
           )}
           {project.demo && (
-            <Link href={project.demo} className="text-accent">
+            <Link href={project.demo} target="_blank" rel="noopener noreferrer" className="text-accent">
               Demo
             </Link>
           )}

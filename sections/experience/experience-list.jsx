@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { experience } from '@/data/experience';
 import { formatDate } from '@/lib/utils';
 import { SectionHeading } from '@/components/ui/section-heading';
@@ -6,13 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { APP_SECTIONS } from '@/lib/constants';
 import Link from 'next/link';
 
-// props: limit? (number) pour limiter le nombre d'items affichés sur la page d'accueil
 export function ExperienceList({ limit, showMoreLink = false }) {
-  // Memoize le slice pour éviter les re-calculs
-  const items = useMemo(() =>
-    typeof limit === 'number' ? experience.slice(0, limit) : experience,
-    [limit]
-  );
+  const items = typeof limit === 'number' ? experience.slice(0, limit) : experience;
   return (
     <section id={APP_SECTIONS.EXPERIENCE} className="pt-4">
       <SectionHeading title="Experience" minimal />
@@ -20,7 +14,7 @@ export function ExperienceList({ limit, showMoreLink = false }) {
         <div className="bg-border/60 absolute top-0 left-[118px] h-full w-px" />
         <ul className="space-y-16">
           {items.map((item, idx) => (
-            <li key={idx} className="relative flex flex-col gap-5 md:flex-row">
+            <li key={`${item.company}-${item.start}`} className="relative flex flex-col gap-5 md:flex-row">
               <div className="flex w-[120px] flex-none flex-col items-start pt-1">
                 <span className="text-mini text-fgSoft font-mono font-bold tracking-widest uppercase">
                   {formatDate(item.start)} - <br />{' '}
