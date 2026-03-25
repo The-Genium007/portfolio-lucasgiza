@@ -186,6 +186,26 @@ export function MobileFloatingNav() {
                 </li>
               );
             })}
+            {/* Blog : lien vers une page séparée */}
+            <li>
+              <Link
+                href="/blog"
+                aria-current={pathname.startsWith('/blog') ? 'page' : undefined}
+                className={`focus-visible:ring-accent/60 group focus-visible:ring-offset-bg flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${pathname.startsWith('/blog') ? 'bg-accent/15 text-fg font-semibold' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
+                onClick={close}
+              >
+                <span>
+                  BLOG
+                  {pathname.startsWith('/blog') && <span className="sr-only"> (current page)</span>}
+                </span>
+                {pathname.startsWith('/blog') && (
+                  <span
+                    className="bg-accent ml-3 inline-block h-2 w-2 rounded-full shadow-[0_0_0_2px_var(--color-bg)]"
+                    aria-hidden="true"
+                  />
+                )}
+              </Link>
+            </li>
           </ul>
         </nav>
         {/* Région aria-live pour annoncer ouvert/fermé (visuellement masquée) */}

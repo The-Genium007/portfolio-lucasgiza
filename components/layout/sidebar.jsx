@@ -14,7 +14,13 @@ const LABELS = {
   [APP_SECTIONS.ABOUT]: 'About',
   [APP_SECTIONS.EXPERIENCE]: 'Experience',
   [APP_SECTIONS.PROJECTS]: 'Projects',
-  [APP_SECTIONS.SKILLS]: 'Skills'
+  [APP_SECTIONS.SKILLS]: 'Skills',
+  [APP_SECTIONS.BLOG]: 'Blog',
+};
+
+// Pages séparées (pas des sections de la homepage) — lien direct au lieu d'un lien ancre
+const PAGE_LINKS = {
+  [APP_SECTIONS.BLOG]: '/blog',
 };
 
 /**
@@ -26,6 +32,7 @@ const LABELS = {
 export function Sidebar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isBlog = pathname.startsWith('/blog');
 
   // Memoize navigation items pour éviter les re-calculs
   const navIds = useMemo(() =>
@@ -37,6 +44,10 @@ export function Sidebar() {
 
   // Par défaut sur la home on force 'about' si aucun actif encore détecté
   const effectiveActive = isHome && !active ? 'about' : active;
+
+  // Nombre total de liens pour calculer le délai d'animation séquentiel du blog
+  const blogDelay = 80 + navIds.length * 70;
+
   return (
     <aside className="pointer-events-auto hidden lg:fixed lg:inset-y-0 lg:flex lg:w-80 lg:flex-col px-10 py-14">
       {/* Bloc en-tête */}
@@ -69,6 +80,21 @@ export function Sidebar() {
               </li>
             );
           })}
+          {/* Blog : lien vers une page séparée (pas une section ancre de la homepage) */}
+          <li className="fade-in-seq" style={{ '--_delay': `${blogDelay}ms` }}>
+            <Link
+              href={PAGE_LINKS[APP_SECTIONS.BLOG]}
+              aria-current={isBlog ? 'page' : undefined}
+              className="group flex items-center py-1"
+            >
+              <span
+                className={`nav-link-anim relative inline-block ${isBlog ? 'is-active text-white scale-105' : 'text-fgSoft'}`}
+              >
+                {LABELS[APP_SECTIONS.BLOG]}
+                {isBlog && <span className="sr-only"> (current page)</span>}
+              </span>
+            </Link>
+          </li>
         </ul>
       </nav>
       <Footer variant="sidebar" />
