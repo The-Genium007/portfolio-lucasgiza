@@ -7,6 +7,7 @@ export function SkillModal({ skill, onClose }) {
   const previousActiveEl = useRef(null);
 
   useEffect(() => {
+    if (!skill) return;
     previousActiveEl.current = document.activeElement;
     function onKey(e) {
       if (e.key === 'Escape') {
@@ -14,9 +15,8 @@ export function SkillModal({ skill, onClose }) {
         onClose();
       }
       if (e.key === 'Tab') {
-        // Focus trap minimaliste
-        const focusable = ref.current.querySelectorAll('[data-focus]');
-        if (!focusable.length) return;
+        const focusable = ref.current?.querySelectorAll('[data-focus]');
+        if (!focusable?.length) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (e.shiftKey && document.activeElement === first) {
@@ -30,16 +30,16 @@ export function SkillModal({ skill, onClose }) {
     }
     document.addEventListener('keydown', onKey, true);
     return () => document.removeEventListener('keydown', onKey, true);
-  }, [onClose]);
+  }, [skill, onClose]);
 
   useEffect(() => {
-    // focus initial
+    if (!skill) return;
     const first = ref.current?.querySelector('[data-focus]');
     first && first.focus();
     return () => {
       previousActiveEl.current && previousActiveEl.current.focus?.();
     };
-  }, []);
+  }, [skill]);
 
   if (!skill) return null;
   return createPortal(

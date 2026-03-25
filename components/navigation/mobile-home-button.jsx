@@ -90,7 +90,7 @@ export function MobileHomeButton({ className }) {
       <Button
         as={Link}
         href="/"
-        aria-label="Retour à l'accueil"
+        aria-label="Back to home"
         aria-describedby={tooltipId}
         onClick={handleHaptic}
         variant="solid"

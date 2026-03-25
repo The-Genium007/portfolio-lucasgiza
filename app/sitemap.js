@@ -1,28 +1,44 @@
 // Sitemap généré statiquement par Next.js (App Router)
 // Docs: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
 import { site } from '@/data/site';
-
-// Si tu ajoutes de nouvelles routes pages, complète simplement le tableau staticRoutes.
-// Pour des routes dynamiques, on pourrait plus tard aller chercher des données.
+import { getAllPosts } from '@/lib/blog';
 
 export default function sitemap() {
   const base = site.url.replace(/\/$/, '');
+  const now = new Date();
 
-  // Routes principales (ajouter si besoin)
+  // Routes statiques du portfolio
   const staticRoutes = [
     '', // homepage
     '/experience',
     '/projects',
     '/personal-projects',
-    '/skills'
+    '/skills',
   ];
 
-  const now = new Date();
-
-  return staticRoutes.map((path) => ({
+  const staticEntries = staticRoutes.map((path) => ({
     url: `${base}${path || '/'}`,
     lastModified: now,
     changeFrequency: 'monthly',
-    priority: path === '' ? 1.0 : 0.7
+    priority: path === '' ? 1.0 : 0.7,
   }));
+
+  // Page liste du blog
+  const blogIndex = {
+    url: `${base}/blog`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  };
+
+  // Pages individuelles des articles — la date de publication comme lastModified
+  const posts = getAllPosts();
+  const blogPosts = posts.map((post) => ({
+    url: `${base}/blog/${post.slug}`,
+    lastModified: post.date ? new Date(post.date) : now,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, blogIndex, ...blogPosts];
 }

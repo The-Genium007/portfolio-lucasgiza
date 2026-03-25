@@ -21,7 +21,7 @@ export function MobileFloatingNav() {
   const effectiveActive = isHomePath
     ? (active && active !== APP_SECTIONS.HOME ? active : APP_SECTIONS.ABOUT)
     : APP_SECTIONS.HOME;
-  const announcement = open ? 'Menu ouvert' : 'Menu fermé';
+  const announcement = open ? 'Menu open' : 'Menu closed';
   const touchStartY = useRef(null);
   const touchLastY = useRef(null);
 
@@ -115,7 +115,7 @@ export function MobileFloatingNav() {
         className="shadow-accent/30 after:border-accent/40 focus-visible:ring-accent/70 fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-accent text-white shadow-lg backdrop-blur-sm after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       >
         <span className="sr-only">
-          {open ? 'Fermer le menu navigation' : 'Ouvrir le menu navigation'}
+          {open ? 'Close navigation menu' : 'Open navigation menu'}
         </span>
         <div className="relative h-6 w-6" aria-hidden="true">
           <span
@@ -186,6 +186,26 @@ export function MobileFloatingNav() {
                 </li>
               );
             })}
+            {/* Blog : lien vers une page séparée */}
+            <li>
+              <Link
+                href="/blog"
+                aria-current={pathname.startsWith('/blog') ? 'page' : undefined}
+                className={`focus-visible:ring-accent/60 group focus-visible:ring-offset-bg flex items-center justify-between rounded-md px-3 py-2 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${pathname.startsWith('/blog') ? 'bg-accent/15 text-fg font-semibold' : 'hover:bg-accent/10 text-fgSoft hover:text-fg'}`}
+                onClick={close}
+              >
+                <span>
+                  BLOG
+                  {pathname.startsWith('/blog') && <span className="sr-only"> (current page)</span>}
+                </span>
+                {pathname.startsWith('/blog') && (
+                  <span
+                    className="bg-accent ml-3 inline-block h-2 w-2 rounded-full shadow-[0_0_0_2px_var(--color-bg)]"
+                    aria-hidden="true"
+                  />
+                )}
+              </Link>
+            </li>
           </ul>
         </nav>
         {/* Région aria-live pour annoncer ouvert/fermé (visuellement masquée) */}

@@ -11,9 +11,15 @@ export const metadata = baseMetadata();
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
       <head>
-        <script defer src="https://cloud.umami.is/script.js" data-website-id="61718afb-0fe2-4d4f-9ef0-f321112e8bef"></script>
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body className="antialiased bg-bg text-fg">
   <a href="#home" className="skip-link">Skip to main content</a>

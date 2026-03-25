@@ -4,12 +4,6 @@
 @import "tailwindcss";
 @import './tokens.css';
 @import './components.css';
-/* Components intégrés directement pour réduire les imports multiples */
-@layer components {
-			.card { border-radius: var(--r-card); border: 1px solid var(--color-border); background: var(--color-base-deep-30); padding: var(--card-padding); transition: border-color var(--transition-base), background-color var(--transition-base); }
-			.card-hover { transition: border-color var(--transition-base), background-color var(--transition-base); }
-			.card-hover:hover, .card-hover:focus-visible { border-color: var(--color-border-hover); background-color: var(--color-base-deep-50); }
-}
 @import './utilities.css';
 
 html { font-feature-settings: "cv02","cv03","cv04","cv11"; }
@@ -46,12 +40,72 @@ b { color: var(--color-fg); }
 
 a { color: var(--color-accent); text-decoration: none; transition: color var(--transition-base); }
 a:hover { text-decoration: none; }
-/* Suppression globale des soulignements décoratifs */
-a:after, a:before { content: none !important; }
 
-/* Variante pour les contenus markdown / typographie */
-.prose a { text-decoration: none; position: relative; }
-.prose a:hover { color: var(--color-accent); }
+/* ── Blog prose : overrides du plugin @tailwindcss/typography pour le thème sombre ── */
+/* Chaque règle cible un élément HTML que remark génère depuis le Markdown */
+
+/* Corps de texte */
+.prose { color: var(--color-fg-soft); }
+
+/* Headings : couleur principale (blanc cassé) */
+.prose h1, .prose h2, .prose h3, .prose h4 { color: var(--color-fg); }
+
+/* Liens : accent bleu, sans soulignement (cohérent avec le reste du site) */
+.prose a { color: var(--color-accent); text-decoration: none; position: relative; }
+.prose a:hover { color: var(--color-fg); }
+
+/* Texte gras : se détache du fg-soft */
+.prose strong { color: var(--color-fg); }
+
+/* Code inline : fond glassmorphism, police mono, coins arrondis */
+.prose code {
+  color: var(--color-accent);
+  background: var(--glass-a08);
+  padding: 0.15em 0.4em;
+  border-radius: var(--r-base);
+  font-size: 0.875em;
+}
+/* Supprime les backticks décoratifs ajoutés par le plugin typography */
+.prose code::before, .prose code::after { content: none; }
+
+/* Blocs de code : fond gris très sombre (neutre, pas violet) + padding interne */
+.prose pre {
+  background: #1a1a3a;
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  padding: 1.25em 1.5em;
+  overflow-x: auto;
+}
+/* Le code à l'intérieur d'un pre ne doit pas avoir le style inline */
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--color-fg-soft);
+  font-size: 0.85em;
+}
+
+/* Citations : bordure accent à gauche */
+.prose blockquote {
+  border-left-color: var(--color-accent);
+  color: var(--color-fg-soft);
+  font-style: normal;
+}
+
+/* Séparateurs horizontaux */
+.prose hr { border-color: var(--color-border); }
+
+/* Listes : bullets/numéros en couleur atténuée */
+.prose ol > li::marker, .prose ul > li::marker { color: var(--color-fg-soft); }
+
+/* Images dans les articles : coins arrondis + bordure */
+.prose img {
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+}
+
+/* Tables */
+.prose th { color: var(--color-fg); border-bottom-color: var(--color-border-strong); }
+.prose td { border-bottom-color: var(--color-border); }
 
 .app-container { max-width: 980px; margin: 0 auto; padding: 0 2rem; }
 

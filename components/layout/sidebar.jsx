@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useScrollSpy } from '../../lib/useScrollSpy';
+import { useScrollSpy } from '@/lib/useScrollSpy';
 import { site } from '@/data/site';
-import { APP_SECTIONS } from '../../lib/constants';
-import { Footer } from './footer';
+import { APP_SECTIONS } from '@/lib/constants';
+import { Footer } from '@/components/layout/footer';
 
 const SECTION_IDS = [APP_SECTIONS.HOME, APP_SECTIONS.ABOUT, APP_SECTIONS.EXPERIENCE, APP_SECTIONS.SKILLS, APP_SECTIONS.PROJECTS];
 const LABELS = {
@@ -14,7 +13,13 @@ const LABELS = {
   [APP_SECTIONS.ABOUT]: 'About',
   [APP_SECTIONS.EXPERIENCE]: 'Experience',
   [APP_SECTIONS.PROJECTS]: 'Projects',
-  [APP_SECTIONS.SKILLS]: 'Skills'
+  [APP_SECTIONS.SKILLS]: 'Skills',
+  [APP_SECTIONS.BLOG]: 'Blog',
+};
+
+// Pages séparées (pas des sections de la homepage) — lien direct au lieu d'un lien ancre
+const PAGE_LINKS = {
+  [APP_SECTIONS.BLOG]: '/blog',
 };
 
 /**
@@ -26,17 +31,18 @@ const LABELS = {
 export function Sidebar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isBlog = pathname.startsWith('/blog');
 
-  // Memoize navigation items pour éviter les re-calculs
-  const navIds = useMemo(() =>
-    isHome ? SECTION_IDS.filter(id => id !== 'home') : SECTION_IDS,
-    [isHome]
-  );
+  const navIds = isHome ? SECTION_IDS.filter(id => id !== 'home') : SECTION_IDS;
 
   const active = useScrollSpy(SECTION_IDS, { offset: 140 });
 
   // Par défaut sur la home on force 'about' si aucun actif encore détecté
   const effectiveActive = isHome && !active ? 'about' : active;
+
+  // Nombre total de liens pour calculer le délai d'animation séquentiel du blog
+  const blogDelay = 80 + navIds.length * 70;
+
   return (
     <aside className="pointer-events-auto hidden lg:fixed lg:inset-y-0 lg:flex lg:w-80 lg:flex-col px-10 py-14">
       {/* Bloc en-tête */}
@@ -47,7 +53,7 @@ export function Sidebar() {
         </div>
       </div>
       {/* Navigation centrée verticalement */}
-      <nav aria-label="Navigation principale" className="relative my-auto">
+      <nav aria-label="Main navigation" className="relative my-auto">
         <ul className="flex flex-col gap-3 text-[18px] font-mono font-medium tracking-wider">
           {navIds.map((id, index) => {
             const isActive = effectiveActive === id;
@@ -63,12 +69,27 @@ export function Sidebar() {
                     className={`nav-link-anim relative inline-block ${isActive ? 'is-active text-white scale-105' : 'text-fgSoft'} `}
                   >
                     {LABELS[id]}
-                    {isActive && <span className="sr-only"> (section in coming)</span>}
+                    {isActive && <span className="sr-only"> (current section)</span>}
                   </span>
                 </Link>
               </li>
             );
           })}
+          {/* Blog : lien vers une page séparée (pas une section ancre de la homepage) */}
+          <li className="fade-in-seq" style={{ '--_delay': `${blogDelay}ms` }}>
+            <Link
+              href={PAGE_LINKS[APP_SECTIONS.BLOG]}
+              aria-current={isBlog ? 'page' : undefined}
+              className="group flex items-center py-1"
+            >
+              <span
+                className={`nav-link-anim relative inline-block ${isBlog ? 'is-active text-white scale-105' : 'text-fgSoft'}`}
+              >
+                {LABELS[APP_SECTIONS.BLOG]}
+                {isBlog && <span className="sr-only"> (current page)</span>}
+              </span>
+            </Link>
+          </li>
         </ul>
       </nav>
       <Footer variant="sidebar" />

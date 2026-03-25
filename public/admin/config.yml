@@ -1,0 +1,70 @@
+# Configuration Decap CMS
+# Documentation : https://decapcms.org/docs/configuration-options/
+
+# Backend : connexion à GitHub via proxy OAuth
+backend:
+  name: github
+  repo: The-Genium007/portfolio-lucasgiza  # Ex: lucasgiza/lucasgiza
+  branch: main
+  base_url: https://auth.lucasgiza.com            # Ex: https://oauth.lucasgiza.com
+
+# Dossier où Decap stocke les images uploadées depuis l'éditeur
+media_folder: "public/images/blog"
+# Chemin public des images (ce que le navigateur voit)
+public_folder: "/images/blog"
+
+# Collections : chaque collection correspond à un type de contenu
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "content/blog"
+    create: true                  # Permet de créer de nouveaux articles
+    slug: "{{slug}}"              # Le nom du fichier .md sera basé sur le titre
+    sort: "date:desc"             # Tri par date décroissante dans l'interface admin
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The title of the blog post"
+
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "Publication date"
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "informatique"
+        # Pour ajouter une catégorie : rajouter une ligne ici (ex: - "worldbuilding")
+        hint: "Main category for this post"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        hint: "Comma-separated tags (e.g. javascript, react, nextjs)"
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Short summary shown in cards and used for SEO (max ~160 characters)"
+
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Optional cover image for the post"
+
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+        hint: "Draft posts are not visible on the public site"
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Write your article content in Markdown"
