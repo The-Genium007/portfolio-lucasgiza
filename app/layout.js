@@ -11,7 +11,7 @@ export const metadata = baseMetadata();
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`scroll-smooth ${inter.variable} ${jetbrains.variable}`}>
       <head>
         {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
           <script
