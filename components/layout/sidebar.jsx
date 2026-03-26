@@ -37,8 +37,9 @@ export function Sidebar() {
 
   const active = useScrollSpy(SECTION_IDS, { offset: 140 });
 
-  // Par défaut sur la home on force 'about' si aucun actif encore détecté
-  const effectiveActive = isHome && !active ? 'about' : active;
+  // Sur la home, on force 'about' si aucune section détectée.
+  // Sur les autres pages, aucune section n'est active (seul Blog est géré séparément).
+  const effectiveActive = isHome ? (active || 'about') : null;
 
   // Nombre total de liens pour calculer le délai d'animation séquentiel du blog
   const blogDelay = 80 + navIds.length * 70;
