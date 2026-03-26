@@ -79,7 +79,7 @@ export function MobileHomeButton({ className }) {
   return (
     <div
       className={cn(
-        'fixed right-4 bottom-4 z-50 md:right-6 md:bottom-6 lg:hidden',
+        'fixed right-6 bottom-24 z-50 lg:hidden',
         'group flex items-center justify-center',
         'transition-all duration-300',
         state.visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',

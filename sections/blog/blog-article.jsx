@@ -107,9 +107,10 @@ export function BlogArticle({ post }) {
             alt={`Illustration for ${title}`}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 720px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 720px, 860px"
             quality={80}
             priority
+            fetchPriority="high"
           />
         </div>
       )}
