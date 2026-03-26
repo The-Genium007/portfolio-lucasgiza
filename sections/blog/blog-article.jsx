@@ -36,7 +36,7 @@ export function BlogArticle({ post }) {
   };
 
   return (
-    <article className="mx-auto max-w-[720px]">
+    <article className="mx-auto max-w-[720px] lg:max-w-[860px]">
       {/* JSON-LD SEO — trusted build-time data only */}
       <script
         type="application/ld+json"
