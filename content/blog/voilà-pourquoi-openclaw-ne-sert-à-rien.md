@@ -115,7 +115,3 @@ L'autonomie totale des agents, c'est pas pour cette année. Quelque part dans le
 - [Fortune, "Why OpenClaw has security experts on edge"](https://fortune.com/2026/02/12/openclaw-ai-agents-security-risks-beware/)
 - [Trend Micro, "What OpenClaw Reveals About Agentic Assistants"](https://www.trendmicro.com/en_us/research/26/b/what-openclaw-reveals-about-agentic-assistants.html)
 - [Bitsight, "OpenClaw Security Risks: Exposed AI Agents"](https://www.bitsight.com/blog/openclaw-ai-security-risks-exposed-instances)
-
----
-
-*Je développe Tumulte, un système de sondages multi-streams pour le JDR sur Twitch. Si tu es MJ et que tu veux que tes viewers participent à tes sessions, c'est sur [tumulte.app](https://tumulte.app).*
