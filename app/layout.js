@@ -5,7 +5,6 @@ import { Footer } from '@/components/layout/footer';
 import { MobileHeader } from '@/components/layout/mobile-header';
 import { baseMetadata } from '@/lib/metadata';
 import { inter, jetbrains } from '@/lib/fonts';
-import { MobileHomeButton } from '@/components/navigation/mobile-home-button';
 import { MobileFloatingNav } from '@/components/navigation/mobile-floating-nav';
 
 export const metadata = baseMetadata();
@@ -40,8 +39,6 @@ export default function RootLayout({ children }) {
             </div>
             </main>
           </div>
-          {/* Mobile/tablet home button (displayed outside homepage) */}
-          <MobileHomeButton />
           {/* Mobile/tablet hamburger menu */}
           <MobileFloatingNav />
         </div>

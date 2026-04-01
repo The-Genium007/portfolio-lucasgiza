@@ -1,17 +1,18 @@
 export const personalProjects = [
   {
-    title: 'Liminal UI Library',
-    slug: 'liminal-ui-library',
+    title: 'Le Chroniqueur',
+    slug: 'le-chroniqueur',
     description:
-      'React component library combining production-ready UI patterns with immersive WebGL animations, driven by Storybook and published on npm.',
+      'Discord bot acting as an automated community manager. Performs informational monitoring, enriches data, generates images via Google Imagen, and schedules social media posts through Postiz.',
     highlights: [
-      'FusionBall metaball animation with mouse interactivity',
-      'Storybook playground for rapid exploration and visual QA',
-      'Published npm package with dual licensing for commercial use'
+      'Multi-provider informational monitoring and data enrichment',
+      'AI-powered image generation with Google Imagen',
+      'Automated social media scheduling via Postiz integration',
+      'Semi-manual to fully automated workflow over time',
     ],
-    tech: ['React', 'TypeScript', 'OGL', 'SCSS', 'Storybook'],
-    repo: 'https://github.com/The-Genium007/liminal-ui-library',
-    image: '/images/personal-projects/liminal-logo.png',
-    year: 2025
-  }
+    tech: ['TypeScript', 'Discord.js', 'Claude API', 'Google Imagen', 'OpenAI', 'SQLite', 'Postiz', 'SearXNG', 'Docker'],
+    repo: 'https://github.com/The-Genium007/LeChroniqueur',
+    image: '/images/personal-projects/le-chroniqueur.png',
+    year: 2025,
+  },
 ];

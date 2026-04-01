@@ -49,11 +49,36 @@ export function MobileFloatingNav() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Focus trap: return focus to button on close
+  // Focus trap: contain focus within panel when open, return to button on close
   useEffect(() => {
-    if (!open && btnRef.current) {
-      btnRef.current.focus({ preventScroll: true });
+    if (!open) {
+      if (btnRef.current) btnRef.current.focus({ preventScroll: true });
+      return;
     }
+    const panel = panelRef.current;
+    if (!panel) return;
+    function handleTab(e) {
+      if (e.key !== 'Tab') return;
+      const focusable = [
+        ...panel.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])'),
+        btnRef.current,
+      ].filter(Boolean);
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener('keydown', handleTab);
+    // Auto-focus first link when opening
+    const firstLink = panel.querySelector('a[href]');
+    if (firstLink) firstLink.focus({ preventScroll: true });
+    return () => document.removeEventListener('keydown', handleTab);
   }, [open]);
 
   const getIsActive = (item) => {

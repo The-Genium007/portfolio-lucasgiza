@@ -23,7 +23,7 @@ export function CompactProjectList({ projects, limit, variant = 'compact' }) {
       {list.map((p) => {
         const techList = Array.isArray(p.tech) ? p.tech : [];
         const highlights = Array.isArray(p.highlights) ? p.highlights : [];
-        const href = p.repo || p.links?.[0]?.url;
+        const href = p.repo || p.link || p.links?.[0]?.url;
         const hasExternalLink = Boolean(href);
         const Content = (
           <div className="gi-fade flex gap-4 relative z-10">
@@ -31,7 +31,7 @@ export function CompactProjectList({ projects, limit, variant = 'compact' }) {
               {p.image ? (
                 <Image
                   src={p.image}
-                  alt={p.title}
+                  alt={`Screenshot of ${p.title}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 128px, 128px"
@@ -43,6 +43,9 @@ export function CompactProjectList({ projects, limit, variant = 'compact' }) {
             <div className={isCompact ? "flex-1 space-y-1.5" : "flex-1 space-y-2"}>
               <h3 className="flex items-center gap-2 text-h4 font-semibold tracking-tight text-fg transition-colors duration-300 ease-out group-hover:text-white">
                 {p.title}
+                {p.wip && (
+                  <Badge size="xs" variant="subtle">WIP</Badge>
+                )}
                 {hasExternalLink && (
                   <ArrowUpRight className="shrink-0 w-[0.85em] h-[0.85em] text-fgSoft transition-colors duration-300 ease-out group-hover:text-white" />
                 )}
@@ -84,7 +87,7 @@ export function CompactProjectList({ projects, limit, variant = 'compact' }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="highlight-spot glass-interactive group -mx-2 block px-2 transform-gpu transition-transform duration-300 ease-out hover:scale-[1.02] focus-visible:scale-[1.02]"
-                aria-label={`${p.title} (ouvrir le dépôt)`}
+                aria-label={`${p.title} — ${p.description}`}
               >
                 {Content}
               </a>

@@ -17,7 +17,7 @@
   --color-base-deep: #3500D3; /* Base profonde unifiée */
   --color-base-deep-30: #3500d37c; /* 30% alpha */
   --color-base-deep-50: #3500D3; /* 50% alpha */
-  --color-skip-fg: #78787b; /* Texte skip-link sur fond accent */
+  --color-skip-fg: #1a1a2e; /* Texte skip-link sur fond accent (AA contrast) */
 
   /* Typographie */
   --font-sans: var(--font-inter), system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;

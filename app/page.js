@@ -17,7 +17,7 @@ export default function Home() {
         <div className="pt-8 border-t border-border/40">
           <div className="flex justify-center">
             <Link
-              href="/cv.pdf"
+              href="/resume/CV Full-stack 2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="relative text-accent text-[16px] font-mono tracking-wide after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-accent after:transition-all hover:after:w-full mb-5 inline-block"

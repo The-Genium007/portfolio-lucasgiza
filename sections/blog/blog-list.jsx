@@ -24,8 +24,16 @@ export function BlogList({ posts, categories }) {
     <div className="space-y-8">
       {/* Filtres de catégories — scroll horizontal sur mobile */}
       {categories.length > 0 && (
-        <div className="flex gap-2 overflow-x-auto pb-2 -mb-2 scrollbar-none">
-          <button type="button" onClick={() => setActiveCategory(null)}>
+        <div
+          role="group"
+          aria-label="Filter articles by category"
+          className="flex gap-2 overflow-x-auto pb-2 -mb-2 scrollbar-none"
+        >
+          <button
+            type="button"
+            onClick={() => setActiveCategory(null)}
+            aria-pressed={activeCategory === null}
+          >
             <Badge
               size="sm"
               variant={activeCategory === null ? 'solid' : 'outline'}
@@ -39,6 +47,7 @@ export function BlogList({ posts, categories }) {
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
+              aria-pressed={activeCategory === cat}
             >
               <Badge
                 size="sm"
@@ -53,15 +62,17 @@ export function BlogList({ posts, categories }) {
       )}
 
       {/* Liste des articles */}
-      {filtered.length > 0 ? (
-        <ul className="space-y-6 no-hover-underline">
-          {filtered.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </ul>
-      ) : (
-        <p className="text-micro text-fgSoft py-8">No articles found.</p>
-      )}
+      <div aria-live="polite">
+        {filtered.length > 0 ? (
+          <ul className="space-y-6 no-hover-underline">
+            {filtered.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </ul>
+        ) : (
+          <p className="text-micro text-fgSoft py-8">No articles found.</p>
+        )}
+      </div>
     </div>
   );
 }

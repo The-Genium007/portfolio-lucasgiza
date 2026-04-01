@@ -17,8 +17,11 @@ export function ExperienceList({ limit, showMoreLink = false }) {
             <li key={`${item.company}-${item.start}`} className="relative flex flex-col gap-5 md:flex-row">
               <div className="flex w-[120px] flex-none flex-col items-start pt-1">
                 <span className="text-mini text-fgSoft font-mono font-bold tracking-widest uppercase">
-                  {formatDate(item.start)} - <br />{' '}
-                  {item.end === 'Present' ? 'PRESENT' : formatDate(item.end)}
+                  <time dateTime={item.start}>{formatDate(item.start)}</time>
+                  {' – '}
+                  <time dateTime={item.end !== 'Present' ? item.end : undefined}>
+                    {item.end === 'Present' ? 'PRESENT' : formatDate(item.end)}
+                  </time>
                 </span>
               </div>
               <div className="relative flex-1 pt-1">
