@@ -1,140 +1,174 @@
 export const skills = [
-  // Catégorie Front-end
+  // Full-Stack Development
   {
     slug: 'html-css',
     name: 'HTML/CSS',
-    category: 'front-end',
+    category: 'full-stack',
     level: 'proficient',
-    description: `Semantic markup, forms & validation, SEO best practices, accessibility attributes, Flexbox & Grid, animations, responsive design, CSS variables, modern layouts.`
+    description: `Semantic markup, forms & validation, SEO best practices, accessibility attributes, Flexbox & Grid, animations, responsive design, CSS variables, modern layouts.`,
   },
   {
     slug: 'javascript-typescript',
     name: 'JavaScript/TypeScript',
-    category: 'front-end',
+    category: 'full-stack',
     level: 'proficient',
-    description: `ES6+ (modules, async/await), DOM & events, patterns (FP/OOP), TypeScript typing & tooling, performance & profiling, tooling (Vite/Webpack), testing (Jest).`
+    description: `ES6+ (modules, async/await), DOM & events, patterns (FP/OOP), TypeScript typing & tooling, performance & profiling, tooling (Vite/Webpack), testing (Jest).`,
   },
   {
     slug: 'react-nextjs',
     name: 'React/Next.js',
-    category: 'front-end',
-    level: 'proficient',
-    description: `Reusable components, state management (custom hooks, context), performance basics, Next.js App Router, pages & routes, server/client components, deployment basics.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Reusable components, state management (custom hooks, context), performance basics, Next.js App Router, pages & routes, server/client components, deployment basics.`,
   },
   {
     slug: 'vuejs-nuxtjs',
     name: 'Vue.js/Nuxt.js',
-    category: 'front-end',
-    level: 'proficient',
-    description: `Single-file components, component composition, reactivity, directives, routing basics, Nuxt app structure, SSR/SSG basics.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Single-file components, component composition, reactivity, directives, routing basics, Nuxt app structure, SSR/SSG basics.`,
   },
   {
-    slug: 'redux',
-    name: 'Redux',
-    category: 'front-end',
-    level: 'beginner',
-    description: `Basic state management, simple actions/reducers, connecting components to store.`
+    slug: 'redux-pinia',
+    name: 'Redux/Pinia',
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `State management patterns, actions/reducers, store modules, connecting components to global state, devtools debugging.`,
   },
   {
     slug: 'accessibility',
     name: 'Accessibility',
-    category: 'front-end',
-    level: 'beginner',
-    description: `ARIA basics, labels, visible focus, contrast, simple keyboard navigation.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `ARIA attributes, labels, visible focus, contrast, keyboard navigation, screen reader testing, semantic HTML patterns.`,
   },
   {
     slug: 'performance',
     name: 'Web Performance',
-    category: 'front-end',
-    level: 'beginner',
-    description: `Lighthouse basics, lazy images, basic code-splitting, simple best practices.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Lighthouse audits, lazy loading, code-splitting, image optimization (WebP/AVIF pipelines), caching strategies, Core Web Vitals.`,
   },
-  // ctégorie Back-end
   {
     slug: 'nodejs',
     name: 'Node.js',
-    category: 'back-end',
-    level: 'beginner',
-    description: `Simple server, basic Express, routes & middleware, environment variables. Currently learning; my #1 priority.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Express/AdonisJS APIs, routes & middleware, authentication (session/JWT), environment configuration, async patterns.`,
   },
   {
     slug: 'postgresql',
     name: 'PostgreSQL',
-    category: 'back-end',
-    level: 'beginner',
-    description: `Simple schema, CRUD, primary/foreign keys, basic indexes, SELECT/WHERE/ORDER.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Schema design, CRUD, relations, indexes, migrations, ORM integration (Lucid, sqlx), basic query optimization.`,
   },
   {
     slug: 'redis',
     name: 'Redis',
-    category: 'back-end',
+    category: 'full-stack',
     level: 'beginner',
-    description: `Simple cache, key/value, TTL, basic data structures (lists/sets).`
+    description: `Simple cache, key/value, TTL, basic data structures (lists/sets).`,
   },
-  // Catégorie dev-ops
   {
     slug: 'docker',
     name: 'Docker',
-    category: 'dev-ops',
-    level: 'beginner',
-    description: `Images & containers, Dockerfiles, volumes, networking, Compose basics.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `Multi-stage builds, Dockerfiles, volumes, networking, Compose, container orchestration basics.`,
   },
   {
     slug: 'docker-swarm',
     name: 'Docker Swarm',
-    category: 'dev-ops',
+    category: 'full-stack',
     level: 'beginner',
-    description: `Swarm mode, services & stacks, replicas, rolling updates, overlay networks.`
+    description: `Swarm mode, services & stacks, replicas, rolling updates, overlay networks.`,
   },
   {
     slug: 'dokploy',
     name: 'Dokploy',
-    category: 'dev-ops',
-    level: 'beginner',
-    description: `Deploy a Docker app, environment variables, domains/SSL via the UI.`
+    category: 'full-stack',
+    level: 'intermediate',
+    description: `App deployment, environment variables, domains/SSL configuration, monitoring via the UI.`,
   },
   {
     slug: 'cloudflare-tunnel',
     name: 'Cloudflare Tunnel',
-    category: 'dev-ops',
+    category: 'full-stack',
     level: 'beginner',
-    description: `Secure tunnels, expose private services, basic access policies, DNS routing.`
+    description: `Secure tunnels, expose private services, basic access policies, DNS routing.`,
   },
- 
-  // Catégorie Others
+
+  // Machine Learning / AI
+  {
+    slug: 'prompt-engineering',
+    name: 'Prompt Engineering',
+    category: 'ml-ai',
+    level: 'proficient',
+    description: `Multi-model prompt design, chain-of-thought, system prompts, structured output, tool-use patterns.`,
+  },
+  {
+    slug: 'multi-provider-ai',
+    name: 'Multi-provider AI',
+    category: 'ml-ai',
+    level: 'proficient',
+    description: `Integration of Claude (Anthropic), GPT (OpenAI), and Google AI (Imagen, Gemini) APIs with provider-agnostic patterns.`,
+  },
+  {
+    slug: 'rag-data-enrichment',
+    name: 'RAG & Data Enrichment',
+    category: 'ml-ai',
+    level: 'beginner',
+    description: `Basic retrieval-augmented generation, web scraping pipelines, content extraction and structuring.`,
+  },
+  {
+    slug: 'image-generation',
+    name: 'AI Image Generation',
+    category: 'ml-ai',
+    level: 'beginner',
+    description: `Google Imagen integration, prompt-to-image workflows, automated visual content creation.`,
+  },
+  {
+    slug: 'rust',
+    name: 'Rust',
+    category: 'ml-ai',
+    level: 'beginner',
+    description: `Currently learning fundamentals — ownership, borrowing, lifetimes, basic async with Tokio.`,
+  },
+
+  // Others
   {
     slug: 'git',
     name: 'Git',
     category: 'others',
-    level: 'beginner',
-    description: `Commit/pull/push, branches, simple PRs, basic merge/rebase.`
+    level: 'intermediate',
+    description: `Branching workflows (main/dev), pull requests, merge/rebase, conflict resolution, conventional commits.`,
   },
   {
     slug: 'github-actions',
     name: 'GitHub Actions',
     category: 'others',
-    level: 'beginner',
-    description: `Simple workflow (build/test), basic secrets, npm cache, basic jobs.`
+    level: 'intermediate',
+    description: `CI/CD workflows, build/test/deploy pipelines, secrets management, caching, matrix strategies.`,
   },
   {
     slug: 'figma',
     name: 'Figma',
     category: 'others',
     level: 'beginner',
-    description: `Frames, basic Auto‑Layout, basic styles, simple components, asset export.`
+    description: `Frames, basic Auto-Layout, basic styles, simple components, asset export.`,
   },
   {
     slug: 'notion',
     name: 'Notion',
     category: 'others',
     level: 'proficient',
-    description: `Linked databases, relations/rollups, advanced templates, dashboards, permissions & sharing, light automations.`
+    description: `Linked databases, relations/rollups, advanced templates, dashboards, permissions & sharing, light automations.`,
   },
 ];
 
 export const skillCategories = [
-  { key: 'front-end', label: 'Front-end' },
-  { key: 'back-end', label: 'Back-end' },
-  { key: 'dev-ops', label: 'Dev-ops' },
+  { key: 'full-stack', label: 'Full-Stack Development' },
+  { key: 'ml-ai', label: 'Machine Learning / AI' },
   { key: 'others', label: 'Others' },
 ];

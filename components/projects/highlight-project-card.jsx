@@ -9,7 +9,7 @@ import { Badge } from '../ui/badge';
  */
 
 export function HighlightProjectCard({ project }) {
-  const hasExternalLink = Boolean(project.repo || project.demo);
+  const hasExternalLink = Boolean(project.repo || project.link || project.demo);
 
   return (
     <article className="glass-interactive group relative flex flex-col overflow-hidden rounded-md border border-border/70 bg-bgAlt/40 backdrop-blur-sm transform-gpu transition-transform duration-500 ease-out hover:scale-[1.03] md:flex-row">
@@ -44,6 +44,11 @@ export function HighlightProjectCard({ project }) {
           {project.repo && (
             <Link href={project.repo} target="_blank" rel="noopener noreferrer" className="text-accent">
               Code
+            </Link>
+          )}
+          {project.link && (
+            <Link href={project.link} target="_blank" rel="noopener noreferrer" className="text-accent">
+              Visit
             </Link>
           )}
           {project.demo && (

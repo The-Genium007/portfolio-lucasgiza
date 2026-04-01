@@ -9,9 +9,14 @@
     transition: color .25s var(--ease-out, ease-out), transform .25s var(--ease-out, ease-out), letter-spacing .3s ease; 
     letter-spacing: 0.04em;
   }
-  .nav-link-anim:hover, .nav-link-anim:focus-visible { 
-    color: #ffffff; 
+  .nav-link-anim:hover, .nav-link-anim:focus-visible {
+    color: #ffffff;
     transform: scale(1.05);
+  }
+  .nav-link-anim:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
   }
   .nav-link-anim.is-active { 
     color: #ffffff; 

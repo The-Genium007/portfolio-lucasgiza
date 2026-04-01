@@ -1,7 +1,22 @@
 export const projects = [
   {
-    title: 'Tumult',
-    slug: 'tumult',
+    title: 'Nerva',
+    slug: 'nerva',
+    description:
+      'Nutrition application designed for endurance athletes. Helps track and optimize dietary intake for peak performance.',
+    highlights: [
+      'Vue.js + Capacitor cross-platform mobile app',
+      'Rust backend powered by Axum',
+      'PostgreSQL database for reliable data storage',
+    ],
+    tech: ['Rust', 'Axum', 'Vue.js', 'TypeScript', 'Capacitor', 'PostgreSQL', 'Redis', 'Tailwind CSS'],
+    // image: '/images/projects/nerva.png',
+    year: 2025,
+    wip: true,
+  },
+  {
+    title: 'Tumulte',
+    slug: 'tumulte',
     description: 'Application for game masters running tabletop RPGs. It lets you launch polls across multiple livestreams and aggregate data from several streams at once.',
     highlights: [
       'Vue.js front-end with Nuxt 3 and Nuxt UI',
@@ -10,21 +25,8 @@ export const projects = [
       'Redis 7 caching + session/JWT auth',
       'Dockerized infra with Dokploy and GitHub Actions'
     ],
-    tech: [
-      'Vue.js',
-      'Nuxt 3',
-      'AdonisJS v6',
-      'PostgreSQL',
-      'Redis',
-      'Transmit',
-      'Vite PWA',
-      'Docker',
-      'Dokploy',
-      'GitHub Actions',
-      'Twitch Helix API',
-      'Sentry'
-    ],
-    repo: 'https://github.com/The-Genium007/Tumulte',
+    tech: ['Vue.js', 'Nuxt 3', 'AdonisJS v6', 'TypeScript', 'PostgreSQL', 'Redis', 'Foundry VTT API', 'Docker', 'Prometheus', 'GitHub Actions'],
+    link: 'https://tumulte.app',
     image: '/images/projects/tumulte.png',
     year: 2025
   },
@@ -40,7 +42,7 @@ export const projects = [
       'Basic SEO metadata'
     ],
     repo: "https://github.com/The-Genium007/portfolio-lucasgiza",
-    tech: ['Next.js','React','TailwindCSS','React Icons','ESLint','Prettier'],
+    tech: ['Next.js','React','Decap CMS','TailwindCSS','React Icons','ESLint','Prettier'],
     image: '/images/projects/portfolio-lucasgiza.png',
     year: 2025,
     featured: true
