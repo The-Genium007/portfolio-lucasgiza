@@ -2,11 +2,24 @@ import { personalProjects } from '@/data/personal-projects';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { CompactProjectList } from '@/components/projects/compact-project-list';
 import { baseMetadata } from '@/lib/metadata';
+import { site } from '@/data/site';
 
 export const metadata = baseMetadata({
   title: 'Personal Projects – Lucas GIZA',
-  openGraph: { title: 'Personal Projects – Lucas GIZA' },
-  twitter: { title: 'Personal Projects – Lucas GIZA' }
+  description:
+    'Personal and experimental projects by Lucas GIZA — internal tools, learning prototypes, and side projects exploring new technologies.',
+  alternates: { canonical: `${site.url}/personal-projects` },
+  openGraph: {
+    title: 'Personal Projects – Lucas GIZA',
+    description:
+      'Personal and experimental projects by Lucas GIZA — internal tools, prototypes, and side projects.',
+    url: `${site.url}/personal-projects`,
+  },
+  twitter: {
+    title: 'Personal Projects – Lucas GIZA',
+    description:
+      'Personal and experimental projects by Lucas GIZA — internal tools, prototypes, and side projects.',
+  },
 });
 
 export default function PersonalProjectsArchivePage() {
