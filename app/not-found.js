@@ -3,7 +3,8 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 
 export const metadata = {
-  title: 'Page not found • 404'
+  title: 'Page not found • 404',
+  robots: { index: false, follow: false },
 };
 
 // Page 404 statique (Next.js app router: not-found.js)

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { getAllPosts, getPostBySlug, getAdjacentPosts, getRelatedPosts } from '@/lib/blog';
 import { BlogArticle } from '@/sections/blog/blog-article';
 import { baseMetadata } from '@/lib/metadata';
 import { site } from '@/data/site';
@@ -79,5 +79,14 @@ export default async function BlogPostPage({ params }) {
 
   if (!post) notFound();
 
-  return <BlogArticle post={post} />;
+  const adjacentPosts = getAdjacentPosts(post.slug);
+  const relatedPosts = getRelatedPosts(post.slug, post.tags);
+
+  return (
+    <BlogArticle
+      post={post}
+      adjacentPosts={adjacentPosts}
+      relatedPosts={relatedPosts}
+    />
+  );
 }

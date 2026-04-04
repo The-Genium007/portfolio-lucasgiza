@@ -1,11 +1,24 @@
 import { ExperienceList } from '@/sections/experience/experience-list';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { baseMetadata } from '@/lib/metadata';
+import { site } from '@/data/site';
 
 export const metadata = baseMetadata({
   title: 'Experience – Lucas GIZA',
-  openGraph: { title: 'Experience – Lucas GIZA' },
-  twitter: { title: 'Experience – Lucas GIZA' }
+  description:
+    'Professional experience of Lucas GIZA as a Full-Stack Developer. Roles, achievements, and technical stacks across web development projects.',
+  alternates: { canonical: `${site.url}/experience` },
+  openGraph: {
+    title: 'Experience – Lucas GIZA',
+    description:
+      'Professional experience of Lucas GIZA as a Full-Stack Developer. Roles, achievements, and technical stacks.',
+    url: `${site.url}/experience`,
+  },
+  twitter: {
+    title: 'Experience – Lucas GIZA',
+    description:
+      'Professional experience of Lucas GIZA as a Full-Stack Developer. Roles, achievements, and technical stacks.',
+  },
 });
 
 export default function ExperiencePage() {
