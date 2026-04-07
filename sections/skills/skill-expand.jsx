@@ -4,6 +4,7 @@ import { cn } from '@/lib/cn';
 
 const LEVEL_MAP = {
   beginner: { dots: 1, label: 'Beginner' },
+  elementary: { dots: 2, label: 'Elementary' },
   intermediate: { dots: 3, label: 'Intermediate' },
   proficient: { dots: 4, label: 'Proficient' },
   expert: { dots: 5, label: 'Expert' },

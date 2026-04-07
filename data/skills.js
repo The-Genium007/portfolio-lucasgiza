@@ -101,20 +101,6 @@ export const skills = [
 
   // Machine Learning / AI
   {
-    slug: 'prompt-engineering',
-    name: 'Prompt Engineering',
-    category: 'ml-ai',
-    level: 'proficient',
-    description: `Multi-model prompt design, chain-of-thought, system prompts, structured output, tool-use patterns.`,
-  },
-  {
-    slug: 'multi-provider-ai',
-    name: 'Multi-provider AI',
-    category: 'ml-ai',
-    level: 'proficient',
-    description: `Integration of Claude (Anthropic), GPT (OpenAI), and Google AI (Imagen, Gemini) APIs with provider-agnostic patterns.`,
-  },
-  {
     slug: 'rag-data-enrichment',
     name: 'RAG & Data Enrichment',
     category: 'ml-ai',
@@ -134,6 +120,13 @@ export const skills = [
     category: 'ml-ai',
     level: 'beginner',
     description: `Currently learning fundamentals — ownership, borrowing, lifetimes, basic async with Tokio.`,
+  },
+  {
+    slug: 'python',
+    name: 'Python',
+    category: 'ml-ai',
+    level: 'beginner',
+    description: `Learning fundamentals — syntax, data structures, scripting, basic libraries.`,
   },
 
   // Others

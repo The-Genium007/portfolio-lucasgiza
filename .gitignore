@@ -40,9 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# generateur de cv PDF statique
-resume
-
 # Cloud storage services
 .icloud
 *.icloud

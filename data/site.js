@@ -4,5 +4,5 @@ export const site = {
   description: 'Full-Stack developer combining design and code to deliver scalable, intuitive web experiences.',
   locale: 'en',
   url: 'https://lucasgiza.com',
-  version: '1.3.1',
+  version: '1.3.2',
 };
