@@ -125,8 +125,8 @@ export const skills = [
     slug: 'python',
     name: 'Python',
     category: 'ml-ai',
-    level: 'beginner',
-    description: `Learning fundamentals — syntax, data structures, scripting, basic libraries.`,
+    level: 'intermediate',
+    description: `Syntax, data structures, scripting, automation, basic libraries (requests, pandas), virtual environments.`,
   },
 
   // Others
